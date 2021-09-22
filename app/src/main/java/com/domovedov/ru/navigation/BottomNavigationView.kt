@@ -23,7 +23,7 @@ import com.domovedov.ru.R
 @ExperimentalFoundationApi
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-
+    
     val items = listOf(
         NavigationItem.Home,
         NavigationItem.Region,

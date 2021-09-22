@@ -1,6 +1,8 @@
 package com.domovedov.ru.ui.home.stories
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyRow
@@ -20,20 +22,23 @@ fun StoriesFullScreen() {
 
     var name by remember { mutableStateOf("") }
 
-    Box(Modifier.fillMaxSize()) {
+    Box(Modifier.fillMaxSize().background(Color.Blue)) {
+        Column() {
+            Spacer(modifier = Modifier.padding(top = 20.dp))
+            StoryTimeProgress()
+        }
         // Image(painter = , contentDescription = )
-        StoryTimeProgress()
     }
 }
 
 @ExperimentalFoundationApi
 @Composable
 fun StoryTimeProgress() {
-    LazyVerticalGrid(cells = GridCells.Fixed(5)) {
-        items(0) {
+    LazyVerticalGrid(cells = GridCells.Fixed(5), Modifier.fillMaxSize()) {
+        items(1) {
             LazyRow {
                 items(4) { item ->
-                    Row(Modifier.fillMaxWidth()) {
+                    Row(Modifier.fillParentMaxSize()) {
                         LinearProgressIndicator(
                             progress = 0.2f,
                             modifier = Modifier

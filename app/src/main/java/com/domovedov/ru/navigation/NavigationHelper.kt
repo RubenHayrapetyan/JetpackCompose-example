@@ -1,8 +1,5 @@
 import androidx.compose.runtime.*
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination.Companion.hierarchy
-import com.domovedov.ru.navigation.MainSubScreen
-import com.domovedov.ru.navigation.Screen
 
 //package com.example.domproject.navigation
 //
@@ -17,31 +14,31 @@ import com.domovedov.ru.navigation.Screen
 //    return navBackStackEntry?.arguments?.getString(KEY_ROUTE)
 //}
 
-@Composable
-private fun NavController.currentScreen(): State<Boolean> {
-
-    val currentScreen = remember { mutableStateOf(false) }
-
-    DisposableEffect(key1 = this) {
-
-        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
-
-            when {
-
-                destination.hierarchy.any { it.route == Screen.StoriesFullScreen.route } -> {
-
-                    currentScreen.value = Screen.StoriesFullScreen
-
-                } else -> currentScreen.value = MainSubScreen.NoBottomBar
-
-            }
-
-        }
-
-        addOnDestinationChangedListener(listener)
-
-    }
-
-    return currentScreen
-
-}
+//@Composable
+//private fun NavController.currentScreen(): State<MainSubScreen> {
+//
+//    val currentScreen = remember { mutableStateOf<MainSubScreen>(MainSubScreen.Home) }
+//
+//    DisposableEffect(key1 = this) {
+//
+//        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
+//
+//            when {
+//
+//                destination.hierarchy.any { it.route == MainSubScreen.Home.route } -> {
+//
+//                    currentScreen.value = MainSubScreen.Home
+//
+//                } else -> currentScreen.value = MainSubScreen.NoBottomBar
+//
+//            }
+//
+//        }
+//
+//        addOnDestinationChangedListener(listener)
+//
+//    }
+//
+//    return currentScreen
+//
+//}
