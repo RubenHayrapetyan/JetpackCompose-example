@@ -4,11 +4,13 @@ import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +23,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.domovedov.entities.local.StoryFullScreenModel
 import com.domovedov.ru.R
+import com.domovedov.ru.noRippleClickable
 import com.domovedov.ru.ui.home.picturesList
 
 @ExperimentalFoundationApi
@@ -42,26 +45,54 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel) {
     Box(
         Modifier
             .fillMaxSize()
-            .background(Color.Blue)) {
-        Row(Modifier.fillMaxSize()){
-            Column(Modifier.fillMaxHeight().fillMaxWidth(0.5f).background(Color.Red)) {
+            .background(Color.Red)) {
 
-            }
-            Column(Modifier.fillMaxHeight().fillMaxWidth(0.5f).background(Color.Green)) {
-
-            }
-        }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Spacer(modifier = Modifier.padding(top = 20.dp))
-            StoryTimeProgress()
-        }
         Image(
             painter = rememberImagePainter(pictureUrl),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds
         )
+
+        Row {
+            Column(
+                Modifier
+                    .background(Color.Transparent)
+                    .fillMaxSize()
+                    .weight(1f)
+                    .noRippleClickable {
+                        Log.i("asdvasvd", "dzax")
+                    }) {
+
+            }
+            Column(
+                Modifier
+                    .background(Color.Transparent)
+                    .fillMaxSize()
+                    .weight(1f)
+                    .noRippleClickable {
+                        Log.i("asdvasvd", "aj")
+                    }) {
+            }
+        }
     }
+
+//    Box(
+//        Modifier
+//            .fillMaxSize()
+//            .background(Color.Blue)) {
+//
+//        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+//            Spacer(modifier = Modifier.padding(top = 20.dp))
+//            StoryTimeProgress()
+//        }
+//        Image(
+//            painter = rememberImagePainter(pictureUrl),
+//            contentDescription = null,
+//            modifier = Modifier.fillMaxSize(),
+//            contentScale = ContentScale.FillBounds
+//        )
+//    }
 }
 
 @ExperimentalFoundationApi

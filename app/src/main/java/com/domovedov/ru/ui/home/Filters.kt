@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.domovedov.entities.local.HomeFilterLocalModel
 import com.domovedov.ru.R
+import com.domovedov.ru.noRippleClickable
 
 @Preview
 @Composable
@@ -35,7 +36,7 @@ fun FilterTypesView(filter: HomeFilterLocalModel) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .clickable {
+            .noRippleClickable {
                 filter.isSelected = !filter.isSelected
                 selectedTypeIndex = filter.isSelected
             }
