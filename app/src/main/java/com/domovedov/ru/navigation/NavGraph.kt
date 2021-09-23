@@ -11,7 +11,7 @@ import androidx.navigation.compose.composable
 import com.domovedov.ru.ui.favorites.FavoritesScreen
 import com.domovedov.ru.ui.home.HomeScreen
 import com.domovedov.ru.ui.home.housecard.HouseCard
-import com.domovedov.ru.ui.home.stories.StoriesFullScreen
+import com.domovedov.ru.ui.home.stories.StoriesFullScreenView
 import com.domovedov.ru.ui.more.MoreScreen
 import com.domovedov.ru.ui.myproject.MyProjectScreen
 import com.domovedov.ru.ui.region.RegionScreen
@@ -83,7 +83,7 @@ private fun NavGraphBuilder.addHouseCardScreen() {
 @ExperimentalPagerApi
 private fun NavGraphBuilder.addStoriesFullScreen() {
     composable(Screen.StoriesFullScreen.route) {
-        StoriesFullScreen()
+        StoriesFullScreenView()
     }
 }
 
