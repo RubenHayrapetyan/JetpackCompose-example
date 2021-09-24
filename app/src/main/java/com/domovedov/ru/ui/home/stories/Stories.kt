@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -17,8 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.domovedov.entities.local.StoryFullScreenModel
@@ -42,63 +45,63 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel) {
 
     var pictureUrl by remember { mutableStateOf(storyFullScreenModel.pictureUrl[0]) }
 
-    Box(
-        Modifier
-            .fillMaxSize()
-            .background(Color.Red)) {
+    ConstraintLayout {
+        val (storyProgress, closeIcon) = createRefs()
 
-        Image(
-            painter = rememberImagePainter(pictureUrl),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
-        )
+        Box(
+            Modifier
+                .fillMaxSize()
+                .background(Color.Red)) {
 
-        Row {
-            Column(
-                Modifier
-                    .background(Color.Transparent)
-                    .fillMaxSize()
-                    .weight(1f)
-                    .noRippleClickable {
-                        Log.i("asdvasvd", "dzax")
-                    }) {
+            Image(
+                painter = rememberImagePainter(pictureUrl),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillBounds
+            )
 
-            }
-            Column(
-                Modifier
-                    .background(Color.Transparent)
-                    .fillMaxSize()
-                    .weight(1f)
-                    .noRippleClickable {
-                        Log.i("asdvasvd", "aj")
-                    }) {
+            Row {
+                Column(
+                    Modifier
+                        .background(Color.Transparent)
+                        .fillMaxSize()
+                        .weight(1f)
+                        .noRippleClickable {
+                            Log.i("asdvasvd", "dzax")
+                        }) {
+
+                }
+                Column(
+                    Modifier
+                        .background(Color.Transparent)
+                        .fillMaxSize()
+                        .weight(1f)
+                        .noRippleClickable {
+                            Log.i("asdvasvd", "aj")
+                        }) {
+                }
             }
         }
+
+        StoryTimeProgress(modifier = Modifier
+            .fillMaxSize()
+            .constrainAs(storyProgress) {
+                top.linkTo(parent.top, margin = 30.dp)
+            })
+        
+        Icon(painter = painterResource(
+            id = R.drawable.ic_close),
+            contentDescription = "Close icon")
     }
 
-//    Box(
-//        Modifier
-//            .fillMaxSize()
-//            .background(Color.Blue)) {
-//
-//        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-//            Spacer(modifier = Modifier.padding(top = 20.dp))
-//            StoryTimeProgress()
-//        }
-//        Image(
-//            painter = rememberImagePainter(pictureUrl),
-//            contentDescription = null,
-//            modifier = Modifier.fillMaxSize(),
-//            contentScale = ContentScale.FillBounds
-//        )
-//    }
 }
 
 @ExperimentalFoundationApi
 @Composable
-fun StoryTimeProgress() {
-    LazyVerticalGrid(cells = GridCells.Fixed(5), Modifier.fillMaxSize()) {
+fun StoryTimeProgress(modifier: Modifier) {
+    LazyVerticalGrid(cells = GridCells.Fixed(5),
+        modifier = modifier
+    ) {
         items(5) {
             LazyRow {
                 items(1) { item ->
@@ -106,7 +109,7 @@ fun StoryTimeProgress() {
                         LinearProgressIndicator(
                             progress = 0.2f,
                             modifier = Modifier
-                                .padding(8.dp)
+                                .padding(4.dp)
                                 .fillMaxWidth(),
                             color = Color.White,
                             backgroundColor = colorResource(id = R.color.white_gradient_50_percent)
