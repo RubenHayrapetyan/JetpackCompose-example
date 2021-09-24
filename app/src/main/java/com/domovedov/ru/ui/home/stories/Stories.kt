@@ -31,10 +31,12 @@ import com.domovedov.ru.ui.home.picturesList
 
 @ExperimentalFoundationApi
 @Composable
-fun StoriesFullScreenView(){
+fun StoriesFullScreenView() {
 
-    val storyFullScreenModel = StoryFullScreenModel("Story title", "This is description",
-        picturesList)
+    val storyFullScreenModel = StoryFullScreenModel(
+        "Story title", "This is description",
+        picturesList
+    )
     StoriesFullScreen(storyFullScreenModel)
 }
 
@@ -51,7 +53,8 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel) {
         Box(
             Modifier
                 .fillMaxSize()
-                .background(Color.Red)) {
+                .background(Color.Red)
+        ) {
 
             Image(
                 painter = rememberImagePainter(pictureUrl),
@@ -88,10 +91,18 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel) {
             .constrainAs(storyProgress) {
                 top.linkTo(parent.top, margin = 30.dp)
             })
-        
+
         Icon(painter = painterResource(
-            id = R.drawable.ic_close),
-            contentDescription = "Close icon")
+            id = R.drawable.ic_close
+        ),
+            contentDescription = "Close icon",
+            Modifier
+                .constrainAs(closeIcon) {
+                    top.linkTo(storyProgress.bottom)
+                    start.linkTo(parent.start)
+                }
+                .padding(top = 30.dp, start = 20.dp).size(30.dp)
+        )
     }
 
 }
@@ -99,13 +110,17 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel) {
 @ExperimentalFoundationApi
 @Composable
 fun StoryTimeProgress(modifier: Modifier) {
-    LazyVerticalGrid(cells = GridCells.Fixed(5),
+    LazyVerticalGrid(
+        cells = GridCells.Fixed(5),
         modifier = modifier
     ) {
         items(5) {
             LazyRow {
                 items(1) { item ->
-                    Row(Modifier.fillParentMaxSize()) {
+                    Row(
+                        Modifier
+                            .fillParentMaxWidth()
+                            .height(10.dp)) {
                         LinearProgressIndicator(
                             progress = 0.2f,
                             modifier = Modifier
@@ -125,5 +140,5 @@ fun StoryTimeProgress(modifier: Modifier) {
 @Preview
 @Composable
 fun StoryFullScreenPreview() {
-   // StoriesFullScreen()
+    // StoriesFullScreen()
 }
