@@ -9,18 +9,20 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
@@ -30,12 +32,14 @@ import com.domovedov.ru.R
 import com.domovedov.ru.noRippleClickable
 import com.domovedov.ru.ui.home.picturesList
 
+@ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
 fun StoriesFullScreenView(navController: NavController) {
 
     val storyFullScreenModel = StoryFullScreenModel(
-        "Story title", "This is description",
+        "Экспертиза строительных работ",
+        "Гнилые доски, дырявые стены, токсичные материалы, обрушение конструкций ",
         picturesList
     )
     StoriesFullScreen(storyFullScreenModel, navController)
@@ -46,23 +50,17 @@ fun StoriesFullScreenView(navController: NavController) {
 @Composable
 fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController: NavController) {
 
-    var pictureUrl by remember { mutableStateOf(storyFullScreenModel.pictureUrl[0]) }
+    var pictureIndex by remember { mutableStateOf(0) }
+    var pictureUrl by remember { mutableStateOf(storyFullScreenModel.pictureUrl[pictureIndex]) }
+
+    val pictureListLength = storyFullScreenModel.pictureUrl.size
 
     ConstraintLayout {
-        val (storyProgress, closeIcon) = createRefs()
+        val (storyProgress, closeIcon, title, description) = createRefs()
 
         Box(
-            Modifier
-                .fillMaxSize()
-                .background(Color.Red)
+            Modifier.fillMaxSize()
         ) {
-
-            Image(
-                painter = rememberImagePainter(pictureUrl),
-                contentDescription = null,
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.FillBounds
-            )
 
             Row {
                 Column(
@@ -71,7 +69,11 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
                         .fillMaxSize()
                         .weight(1f)
                         .noRippleClickable {
-                            Log.i("asdvasvd", "dzax")
+                            if (pictureIndex != 0) {
+                                pictureIndex--
+                                pictureUrl = storyFullScreenModel.pictureUrl[pictureIndex]
+                            }
+                            Log.i("asdvasvd", "dzax  $pictureIndex")
                         }) {
 
                 }
@@ -81,24 +83,41 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
                         .fillMaxSize()
                         .weight(1f)
                         .noRippleClickable {
-                            Log.i("asdvasvd", "aj")
+
+                            if (pictureIndex != pictureListLength - 1) {
+                                Log.i("clickTest", "pictureIndex = $pictureIndex")
+                                Log.i("clickTest", "pictureListLength = $pictureListLength ")
+                                pictureIndex++
+                                pictureUrl = storyFullScreenModel.pictureUrl[pictureIndex]
+                            }
+                            Log.i("asdvasvd", "aj $pictureIndex")
                         }) {
                 }
             }
+
+            Image(
+                painter = rememberImagePainter(pictureUrl),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillBounds
+            )
+
         }
 
-        StoryTimeProgress(modifier = Modifier
-            .fillMaxSize()
-            .constrainAs(storyProgress) {
-                top.linkTo(parent.top, margin = 30.dp)
-            })
+        StoryTimeProgress(
+            modifier = Modifier
+                .constrainAs(storyProgress) {
+                    top.linkTo(parent.top, margin = 30.dp)
+                },
+            pictureListLength
+        )
 
         Image(painter = painterResource(
             id = R.drawable.ic_close
         ),
             contentDescription = "Close icon",
             Modifier
-                .constrainAs(closeIcon){
+                .constrainAs(closeIcon) {
                     top.linkTo(parent.top, margin = 60.dp)
                     start.linkTo(parent.start, margin = 20.dp)
                 }
@@ -106,18 +125,48 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
                     navController.popBackStack()
                 }
         )
+
+        Text(
+            text = storyFullScreenModel.title,
+            fontWeight = FontWeight.W800,
+            fontSize = 30.sp,
+            color = Color.White,
+            modifier =  Modifier
+                .constrainAs(title) {
+                    bottom.linkTo(description.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
+        )
+
+        val guildLineFromBottom = createGuidelineFromBottom(0.1f)
+
+        Text(
+            text = storyFullScreenModel.description,
+            fontWeight = FontWeight.W600,
+            color = Color.White,
+            fontSize = 18.sp,
+            modifier =  Modifier
+                .constrainAs(description) {
+                    bottom.linkTo(guildLineFromBottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .padding(start = 20.dp, end = 20.dp)
+        )
     }
 
 }
 
 @ExperimentalFoundationApi
 @Composable
-fun StoryTimeProgress(modifier: Modifier) {
+fun StoryTimeProgress(modifier: Modifier, storyCount: Int) {
     LazyVerticalGrid(
-        cells = GridCells.Fixed(5),
+        cells = GridCells.Fixed(storyCount),
         modifier = modifier
     ) {
-        items(5) {
+        items(storyCount) {
             LazyRow {
                 items(1) { item ->
                     Row(
