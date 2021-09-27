@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.domovedov.entities.local.StoryFullScreenModel
@@ -31,19 +32,19 @@ import com.domovedov.ru.ui.home.picturesList
 
 @ExperimentalFoundationApi
 @Composable
-fun StoriesFullScreenView() {
+fun StoriesFullScreenView(navController: NavController) {
 
     val storyFullScreenModel = StoryFullScreenModel(
         "Story title", "This is description",
         picturesList
     )
-    StoriesFullScreen(storyFullScreenModel)
+    StoriesFullScreen(storyFullScreenModel, navController)
 }
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel) {
+fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController: NavController) {
 
     var pictureUrl by remember { mutableStateOf(storyFullScreenModel.pictureUrl[0]) }
 
@@ -92,16 +93,18 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel) {
                 top.linkTo(parent.top, margin = 30.dp)
             })
 
-        Icon(painter = painterResource(
+        Image(painter = painterResource(
             id = R.drawable.ic_close
         ),
             contentDescription = "Close icon",
             Modifier
-                .constrainAs(closeIcon) {
-                    top.linkTo(storyProgress.bottom)
-                    start.linkTo(parent.start)
+                .constrainAs(closeIcon){
+                    top.linkTo(parent.top, margin = 60.dp)
+                    start.linkTo(parent.start, margin = 20.dp)
                 }
-                .padding(top = 30.dp, start = 20.dp).size(30.dp)
+                .clickable {
+                    navController.popBackStack()
+                }
         )
     }
 
@@ -120,7 +123,8 @@ fun StoryTimeProgress(modifier: Modifier) {
                     Row(
                         Modifier
                             .fillParentMaxWidth()
-                            .height(10.dp)) {
+                            .height(10.dp)
+                    ) {
                         LinearProgressIndicator(
                             progress = 0.2f,
                             modifier = Modifier

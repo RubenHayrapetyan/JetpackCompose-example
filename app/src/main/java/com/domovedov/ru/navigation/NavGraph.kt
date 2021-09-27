@@ -23,13 +23,13 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @Composable
 fun Navigation(navController: NavHostController) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
-        addHomeScreen(navController = navController)
+        addHomeScreen(navController)
         addRegionScreen()
         addMyProjectScreen()
         addFavoritesScreen()
         addMoreScreen()
         addHouseCardScreen()
-        addStoriesFullScreen()
+        addStoriesFullScreen(navController)
 
     }
 }
@@ -81,9 +81,9 @@ private fun NavGraphBuilder.addHouseCardScreen() {
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
-private fun NavGraphBuilder.addStoriesFullScreen() {
+private fun NavGraphBuilder.addStoriesFullScreen(navController: NavController) {
     composable(Screen.StoriesFullScreen.route) {
-        StoriesFullScreenView()
+        StoriesFullScreenView(navController)
     }
 }
 
