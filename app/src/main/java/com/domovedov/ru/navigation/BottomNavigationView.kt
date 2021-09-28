@@ -15,6 +15,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -29,7 +30,7 @@ fun BottomNavigationBar(navController: NavController) {
         NavigationItem.Region,
         NavigationItem.MyProject,
         NavigationItem.Favorites,
-//        NavigationItem.More
+        NavigationItem.More
     )
 
     BottomNavigation(
@@ -58,7 +59,9 @@ fun BottomNavigationBar(navController: NavController) {
                 },
                 label = {
                     Text(
-                        text = item.title
+                        text = item.title,
+                        fontSize = 10.sp,
+                        maxLines = 1
                     )
                 },
                 selectedContentColor = colorResource(id = R.color.blue),

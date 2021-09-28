@@ -2,7 +2,7 @@ package com.domovedov.entities.local
 
 data class HomeItemLocalModel(
     val homeIcon: List<String>,
-    val isFavorites: Boolean,
+    var isFavorites: Boolean,
     val name: String,
     val descriptionBlackName: String,
     val description: String,

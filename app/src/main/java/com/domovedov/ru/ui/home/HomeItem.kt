@@ -2,13 +2,14 @@ package com.domovedov.ru.ui.home
 
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.TextView
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,21 +25,25 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
 import com.domovedov.entities.local.HomeItemLocalModel
 import com.domovedov.ru.R
+import com.domovedov.ru.noRippleClickable
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 
 private val clickEvent = {}
 
+@ExperimentalCoilApi
 @ExperimentalPagerApi
 @Composable
 fun HomeItemMain(
     homeItemModel: HomeItemLocalModel,
     onClick: () -> Unit
 ) {
-    Box(Modifier.fillMaxSize()){
-      //  Icon(painter = painterResource(id = R.drawable.), contentDescription = )
+    Box(Modifier.fillMaxSize()) {
+        var isFavorite by remember { mutableStateOf(homeItemModel.isFavorites) }
+        //  Icon(painter = painterResource(id = R.drawable.), contentDescription = )
 
         Column(
             Modifier.fillMaxSize()
@@ -57,22 +62,28 @@ fun HomeItemMain(
                     .fillMaxWidth()
                     .background(color = Color.White)
             ) {
-                Description(homeItemModel){
+                Description(homeItemModel) {
                     onClick.invoke()
                 }
             }
         }
-    }
-}
 
-@Composable
-fun Dot(){
-    Box(
-        modifier = Modifier
-            .size(25.dp)
-            .clip(CircleShape)
-            .background(Color.Red)
-    )
+        Image(
+            painter = painterResource(
+                id = if (isFavorite) R.drawable.ic_favorit_yes
+                else R.drawable.ic_favorite_no
+            ),
+            contentDescription = "Favorite state",
+            Modifier
+                .noRippleClickable {
+                    homeItemModel.isFavorites = !homeItemModel.isFavorites
+                    isFavorite = homeItemModel.isFavorites
+                }
+                .align(Alignment.TopEnd)
+                .padding(top = 20.dp, end = 20.dp),
+            alignment = Alignment.TopEnd
+        )
+    }
 }
 
 @Composable
@@ -101,7 +112,12 @@ private fun Description(homeItemModel: HomeItemLocalModel, onClick: () -> Unit) 
 
             Spacer(modifier = Modifier.padding(12.dp))
 
-            Text(text = homeItemModel.size, fontFamily = font, fontSize = fontSize, color = blackColor)
+            Text(
+                text = homeItemModel.size,
+                fontFamily = font,
+                fontSize = fontSize,
+                color = blackColor
+            )
 
             Spacer(modifier = Modifier.padding(12.dp))
 
@@ -111,11 +127,16 @@ private fun Description(homeItemModel: HomeItemLocalModel, onClick: () -> Unit) 
             )
             Spacer(modifier = Modifier.padding(12.dp))
 
-            Text(text = homeItemModel.price, fontFamily = font, fontSize = fontSize, color = blackColor)
+            Text(
+                text = homeItemModel.price,
+                fontFamily = font,
+                fontSize = fontSize,
+                color = blackColor
+            )
 
 
         }
-        Row() {
+        Row {
             val description =
                 if (homeItemModel.description.length > 50 &&
                     homeItemModel.description.contains("...")
@@ -174,14 +195,16 @@ private fun addMoreTextToEndOfTheText(descriptionText: String, maxLine: Int): St
 @Preview
 @Composable
 fun HomeItemMainPreview() {
-    HomeItemMain(homeItemModel = HomeItemLocalModel(
-        picturesList,
-        false,
-        "Клееный брус 3",
-        "BLYSKÄR 33",
-        " Недавно Проект–Сервис запустил линейку домов из " +
-                "клееного бруса. Отличительной чертой",
-        "110 м2",
-        "2,4-6 млн ₽"
-    ), clickEvent)
+    HomeItemMain(
+        homeItemModel = HomeItemLocalModel(
+            picturesList,
+            false,
+            "Клееный брус 3",
+            "BLYSKÄR 33",
+            " Недавно Проект–Сервис запустил линейку домов из " +
+                    "клееного бруса. Отличительной чертой",
+            "110 м2",
+            "2,4-6 млн ₽"
+        ), clickEvent
+    )
 }
