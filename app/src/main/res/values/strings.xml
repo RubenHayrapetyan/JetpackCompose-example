@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Domovedov</string>
     <string name="moskovskaya_oblast">Московская область</string>
+    <string name="poka_tut_pusto">Пока тут пусто</string>
+    <string name="najimayte_na_flajok_kartochki">Нажимайте флажок на карточке дома и добавляйте
+        сюда то, что нравится.</string>
 </resources>

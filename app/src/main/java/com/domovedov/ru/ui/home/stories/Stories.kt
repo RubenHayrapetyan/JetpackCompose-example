@@ -16,9 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -140,7 +138,7 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
                 .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
         )
 
-        val guildLineFromBottom = createGuidelineFromBottom(0.1f)
+        val guideLineFromBottom = createGuidelineFromBottom(0.1f)
 
         Text(
             text = storyFullScreenModel.description,
@@ -149,7 +147,7 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
             fontSize = 18.sp,
             modifier =  Modifier
                 .constrainAs(description) {
-                    bottom.linkTo(guildLineFromBottom)
+                    bottom.linkTo(guideLineFromBottom)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
