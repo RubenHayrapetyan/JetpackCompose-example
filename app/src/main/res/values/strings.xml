@@ -4,4 +4,6 @@
     <string name="poka_tut_pusto">Пока тут пусто</string>
     <string name="najimayte_na_flajok_kartochki">Нажимайте флажок на карточке дома и добавляйте
         сюда то, что нравится.</string>
+    <string name="yes">Да</string>
+    <string name="vibrat_dom">Выбрать дом</string>
 </resources>
