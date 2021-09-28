@@ -94,7 +94,7 @@ private fun Description(homeItemModel: HomeItemLocalModel, onClick: () -> Unit) 
     Column(
         Modifier
             .fillMaxWidth()
-            .clickable { onClick.invoke() }
+            .noRippleClickable { onClick.invoke() }
             .padding(start = 20.dp, end = 20.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

@@ -6,7 +6,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Text
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -20,10 +22,9 @@ import com.domovedov.entities.local.HomeFilterLocalModel
 import com.domovedov.entities.local.HomeItemLocalModel
 import com.domovedov.entities.local.StoryLocalModel
 import com.domovedov.ru.R
-import com.domovedov.ru.navigation.NavigationItem
-import com.domovedov.ru.navigation.Screen
 import com.domovedov.ru.ui.home.housecard.HouseCard
 import com.google.accompanist.pager.ExperimentalPagerApi
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
@@ -82,10 +83,16 @@ val homeItemLocalModel = listOf(
     )
 )
 
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun HomeScreen(navController: NavController) {
+
+    val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+
+    val coroutineScope = rememberCoroutineScope()
+
     Box {
 
         Column(Modifier.fillMaxSize()) {
@@ -115,9 +122,17 @@ fun HomeScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.padding(top = 18.dp))
 
-            HomeItems(homeItemLocalModel, navController)
+            HomeItems(homeItemLocalModel){
+                Log.i("clickTest", "Clicked")
+                coroutineScope.launch {
+                    modalBottomSheetState.show()
+                }
+
+            }
 
         }
+
+        BottomSheet(modalBottomSheetValue = modalBottomSheetState.currentValue)
     }
 }
 
@@ -156,9 +171,13 @@ private fun Filters(filters: List<HomeFilterLocalModel>) {
     }
 }
 
+@ExperimentalCoilApi
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-private fun HomeItems(homeItemsList: List<HomeItemLocalModel>, navController: NavController){
+private fun HomeItems(
+    homeItemsList: List<HomeItemLocalModel>,
+    onClick: () -> Unit){
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         contentPadding = PaddingValues(bottom = 30.dp),
@@ -167,9 +186,15 @@ private fun HomeItems(homeItemsList: List<HomeItemLocalModel>, navController: Na
         items(homeItemsList.size){ item->
             Column(Modifier.fillParentMaxSize()) {
                 HomeItemMain(homeItemsList[item]) {
-                    navController.navigate(Screen.HouseCard.route)
+                    onClick.invoke()
                 }
             }
         }
     }
+}
+
+@ExperimentalMaterialApi
+@Composable
+private fun BottomSheet(modalBottomSheetValue: ModalBottomSheetValue){
+    HouseCard(modalBottomSheetValue = modalBottomSheetValue)
 }

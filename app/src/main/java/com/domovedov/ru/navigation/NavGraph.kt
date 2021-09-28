@@ -28,7 +28,7 @@ fun Navigation(navController: NavHostController) {
         addMyProjectScreen()
         addFavoritesScreen()
         addMoreScreen()
-        addHouseCardScreen()
+     //   addHouseCardScreen()
         addStoriesFullScreen(navController)
 
     }
@@ -70,13 +70,13 @@ private fun NavGraphBuilder.addMoreScreen() {
     }
 }
 
-@ExperimentalMaterialApi
-@ExperimentalPagerApi
-private fun NavGraphBuilder.addHouseCardScreen() {
-    composable(Screen.HouseCard.route) {
-        HouseCard()
-    }
-}
+//@ExperimentalMaterialApi
+//@ExperimentalPagerApi
+//private fun NavGraphBuilder.addHouseCardScreen() {
+//    composable(Screen.HouseCard.route) {
+//        HouseCard()
+//    }
+//}
 
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
