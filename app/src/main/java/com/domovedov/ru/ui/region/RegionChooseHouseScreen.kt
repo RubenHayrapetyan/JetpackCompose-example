@@ -1,6 +1,7 @@
-package com.domovedov.ru.ui.myproject
+package com.domovedov.ru.ui.region
 
 import androidx.compose.foundation.layout.fillMaxSize
+
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,12 +23,12 @@ import com.domovedov.ru.R
 
 @Preview
 @Composable
-fun NoProjectsScreenPreview(){
-    NoProjectsScreen()
+fun RegionChooseHouseScreenPreview(){
+    RegionChooseHouseScreen()
 }
 
 @Composable
-fun NoProjectsScreen(){
+fun RegionChooseHouseScreen(){
     ConstraintLayout(Modifier.fillMaxSize()) {
         val (bigText, smallText, button) = createRefs()
 
@@ -35,7 +36,7 @@ fun NoProjectsScreen(){
         val guideLineFromBottom = createGuidelineFromBottom(0.15f)
 
         Text(
-            text = stringResource(id = R.string.poka_tut_pusto),
+            text = stringResource(id = R.string.skoro_tut_budet_marketplace),
             fontSize = 27.sp,
             fontWeight = FontWeight.W800,
             color = Color.Black,
@@ -48,7 +49,7 @@ fun NoProjectsScreen(){
         )
 
         Text(
-            text = stringResource(id = R.string.najimayte_na_flajok_kartochki),
+            text = stringResource(id = R.string.no_uje_seychas_mi_proveryaem),
             fontSize = 16.sp,
             fontWeight = FontWeight.W600,
             color = Color.Black,
@@ -70,6 +71,7 @@ fun NoProjectsScreen(){
                 }
                 .padding(start = 20.dp, end = 20.dp)
                 .clip(RoundedCornerShape(50.dp))
+
         ) {
             Text(
                 text = stringResource(id = R.string.vibrat_dom),

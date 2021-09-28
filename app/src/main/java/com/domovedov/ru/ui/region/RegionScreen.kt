@@ -29,7 +29,7 @@ private fun MyLazyTest(){
     ){
         items(5){ item->
             Column(Modifier.fillParentMaxSize()) {
-                MYTEEEEST()
+               // MYTEEEEST()
             }
         }
     }

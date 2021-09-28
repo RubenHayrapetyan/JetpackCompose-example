@@ -6,4 +6,8 @@
         сюда то, что нравится.</string>
     <string name="yes">Да</string>
     <string name="vibrat_dom">Выбрать дом</string>
+    <string name="skoro_tut_budet_marketplace">Скоро тут будет маркетплейс земельных участков</string>
+    <string name="no_uje_seychas_mi_proveryaem">Но уже сейчас мы проверяем все земельные участки.
+        Для этого выберете дом и отправьте нам заявку.
+        На одном из этапов сделки мы выполним комплексную проверку участка.</string>
 </resources>
