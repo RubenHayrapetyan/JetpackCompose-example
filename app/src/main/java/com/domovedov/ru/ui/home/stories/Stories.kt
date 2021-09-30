@@ -25,7 +25,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.domovedov.entities.local.StoryFullScreenModel
+import com.domovedov.entities.local.StoriesFullScreenModel
 import com.domovedov.ru.R
 import com.domovedov.ru.noRippleClickable
 import com.domovedov.ru.ui.home.picturesList
@@ -35,23 +35,32 @@ import com.domovedov.ru.ui.home.picturesList
 @Composable
 fun StoriesFullScreenView(navController: NavController) {
 
-    val storyFullScreenModel = StoryFullScreenModel(
-        "Экспертиза строительных работ",
-        "Гнилые доски, дырявые стены, токсичные материалы, обрушение конструкций ",
-        picturesList
-    )
-    StoriesFullScreen(storyFullScreenModel, navController)
+    val storiesList = mutableListOf<StoriesFullScreenModel>()
+    storiesList.add(StoriesFullScreenModel("Экспертиза строительных работ",
+        "Гнилые доски, дырявые стены, токсичные материалы, обрушение конструкций",
+    picturesList[0]))
+    storiesList.add(StoriesFullScreenModel("Экспертиза строительных работ 2",
+        "Гнилые доски, дырявые стены 2, токсичные материалы, обрушение конструкций",
+        picturesList[1]))
+    storiesList.add(StoriesFullScreenModel("Экспертиза строительных работ 3",
+        "Гнилые доски, дырявые стены 3, токсичные материалы, обрушение конструкций",
+        picturesList[2]))
+    storiesList.add(StoriesFullScreenModel("Экспертиза строительных работ 4",
+        "Гнилые доски, дырявые стены 4, токсичные материалы, обрушение конструкций",
+        picturesList[3]))
+    StoriesFullScreen(storiesList, navController)
 }
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController: NavController) {
+fun StoriesFullScreen(storiesFullScreenModel: List<StoriesFullScreenModel>, navController: NavController) {
 
-    var pictureIndex by remember { mutableStateOf(0) }
-    var pictureUrl by remember { mutableStateOf(storyFullScreenModel.pictureUrl[pictureIndex]) }
+    var storyIndex by remember { mutableStateOf(0) }
+    var pictureUrl = picturesList[storyIndex]
+    val pictureListLength = storiesFullScreenModel.size
 
-    val pictureListLength = storyFullScreenModel.pictureUrl.size
+ //   val responseState by viewModel.ResponseStatus.observeAsState()
 
     ConstraintLayout {
         val (storyProgress, closeIcon, title, description) = createRefs()
@@ -67,11 +76,10 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
                         .fillMaxSize()
                         .weight(1f)
                         .noRippleClickable {
-                            if (pictureIndex != 0) {
-                                pictureIndex--
-                                pictureUrl = storyFullScreenModel.pictureUrl[pictureIndex]
+                            if (storyIndex != 0) {
+                                storyIndex--
+                                pictureUrl = storiesFullScreenModel[storyIndex].pictureUrl
                             }
-                            Log.i("asdvasvd", "dzax  $pictureIndex")
                         }) {
 
                 }
@@ -82,13 +90,12 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
                         .weight(1f)
                         .noRippleClickable {
 
-                            if (pictureIndex != pictureListLength - 1) {
-                                Log.i("clickTest", "pictureIndex = $pictureIndex")
+                            if (storyIndex != pictureListLength - 1) {
+                                Log.i("clickTest", "pictureIndex = $storyIndex")
                                 Log.i("clickTest", "pictureListLength = $pictureListLength ")
-                                pictureIndex++
-                                pictureUrl = storyFullScreenModel.pictureUrl[pictureIndex]
+                                storyIndex++
+                                pictureUrl = storiesFullScreenModel[storyIndex].pictureUrl
                             }
-                            Log.i("asdvasvd", "aj $pictureIndex")
                         }) {
                 }
             }
@@ -99,7 +106,6 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.FillBounds
             )
-
         }
 
         StoryTimeProgress(
@@ -125,7 +131,7 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
         )
 
         Text(
-            text = storyFullScreenModel.title,
+            text = storiesFullScreenModel[storyIndex].title,
             fontWeight = FontWeight.W800,
             fontSize = 30.sp,
             color = Color.White,
@@ -141,7 +147,7 @@ fun StoriesFullScreen(storyFullScreenModel: StoryFullScreenModel, navController:
         val guideLineFromBottom = createGuidelineFromBottom(0.1f)
 
         Text(
-            text = storyFullScreenModel.description,
+            text = storiesFullScreenModel[storyIndex].description,
             fontWeight = FontWeight.W600,
             color = Color.White,
             fontSize = 18.sp,

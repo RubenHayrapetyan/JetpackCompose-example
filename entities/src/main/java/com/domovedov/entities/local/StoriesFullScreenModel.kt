@@ -1,7 +1,7 @@
 package com.domovedov.entities.local
 
-data class StoryFullScreenModel(
+data class StoriesFullScreenModel(
     val title: String,
     val description: String,
-    val pictureUrl: List<String>,
+    val pictureUrl: String,
 )
