@@ -41,16 +41,17 @@ fun HomeItemMain(
     homeItemModel: HomeItemLocalModel,
     onClick: () -> Unit
 ) {
-    Box(Modifier.fillMaxSize()) {
+    Box() {
         var isFavorite by remember { mutableStateOf(homeItemModel.isFavorites) }
         //  Icon(painter = painterResource(id = R.drawable.), contentDescription = )
 
         Column(
-            Modifier.fillMaxSize()
+//            Modifier.fillMaxSize()
         ) {
             Row(
                 Modifier
-                    .weight(0.7f)
+                 //   .weight(0.7f)
+                    .height(251.dp)
                     .fillMaxWidth()
 
             ) {
@@ -58,7 +59,7 @@ fun HomeItemMain(
             }
             Row(
                 Modifier
-                    .weight(0.3f)
+                  //  .weight(0.3f)
                     .fillMaxWidth()
                     .background(color = Color.White)
             ) {

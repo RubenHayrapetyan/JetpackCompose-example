@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -23,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
@@ -31,7 +29,6 @@ import com.domovedov.entities.local.StoriesFullScreenModel
 import com.domovedov.ru.R
 import com.domovedov.ru.noRippleClickable
 import com.domovedov.ru.ui.home.picturesList
-import org.koin.androidx.viewmodel.compat.ViewModelCompat.getViewModel
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
@@ -53,7 +50,7 @@ fun StoriesFullScreenView(navController: NavController) {
         picturesList[3]))
    // val vm = getViewModel<StoriesViewModel>()
   //  val viewModel: StoriesViewModel by viewModel()
-    StoriesContent(vm, storiesList, navController)
+    StoriesContent( storiesList, navController)
    // StoriesContent(storiesList, navController)
 }
 
@@ -61,7 +58,7 @@ fun StoriesFullScreenView(navController: NavController) {
 @ExperimentalFoundationApi
 @Composable
 private fun StoriesContent(
-    viewModel: StoriesViewModel,
+ //   viewModel: StoriesViewModel,
     storiesFullScreenModel: List<StoriesFullScreenModel>,
     navController: NavController){
 
@@ -80,7 +77,6 @@ private fun StoriesContent(
         Box(
             Modifier.fillMaxSize()
         ) {
-
             Row {
                 Column(
                     Modifier
@@ -93,7 +89,6 @@ private fun StoriesContent(
                                 pictureUrl = storiesFullScreenModel[storyIndex].pictureUrl
                             }
                         }) {
-
                 }
                 Column(
                     Modifier
