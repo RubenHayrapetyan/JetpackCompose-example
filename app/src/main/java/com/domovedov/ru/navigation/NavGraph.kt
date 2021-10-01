@@ -47,6 +47,7 @@ private fun NavGraphBuilder.addMyProjectScreen() {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 private fun NavGraphBuilder.addFavoritesScreen() {
     composable(NavigationItem.Favorites.route) {

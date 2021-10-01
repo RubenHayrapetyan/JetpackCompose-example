@@ -5,8 +5,12 @@
     <string name="najimayte_na_flajok_kartochki">Нажимайте флажок на карточке дома и добавляйте
         сюда то, что нравится.</string>
     <string name="yes">Да</string>
+    <string name="zayavka_otpravlena">Заявка отправлена!</string>
     <string name="favorite">Избранное</string>
     <string name="vibrat_dom">Выбрать дом</string>
+    <string name="pereyti_v_sdelku">Перейти в сделку</string>
+    <string name="nam_potrebuetsya_nemnogo">Нам потребуется немного времени чтобы подтвердить старт
+        работ у застройщика, а потом свяжемся с вами.</string>
     <string name="skoro_tut_budet_marketplace">Скоро тут будет маркетплейс земельных участков</string>
     <string name="no_uje_seychas_mi_proveryaem">Но уже сейчас мы проверяем все земельные участки.
         Для этого выберете дом и отправьте нам заявку.
