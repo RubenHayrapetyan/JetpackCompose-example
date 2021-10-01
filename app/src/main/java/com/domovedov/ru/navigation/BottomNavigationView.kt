@@ -1,6 +1,7 @@
 package com.domovedov.ru.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
@@ -61,7 +62,7 @@ fun BottomNavigationBar(navController: NavController) {
                     Text(
                         text = item.title,
                         fontSize = 10.sp,
-                        maxLines = 1
+                        maxLines = 2
                     )
                 },
                 selectedContentColor = colorResource(id = R.color.blue),
@@ -84,7 +85,7 @@ fun BottomNavigationBar(navController: NavController) {
                         // Restore state when reselecting a previously selected item
                         restoreState = true
                     }
-                }
+                },
             )
         }
     }

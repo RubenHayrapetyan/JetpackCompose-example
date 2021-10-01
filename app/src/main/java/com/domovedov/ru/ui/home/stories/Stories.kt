@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
@@ -29,6 +31,7 @@ import com.domovedov.entities.local.StoriesFullScreenModel
 import com.domovedov.ru.R
 import com.domovedov.ru.noRippleClickable
 import com.domovedov.ru.ui.home.picturesList
+import org.koin.androidx.viewmodel.compat.ViewModelCompat.getViewModel
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
@@ -48,19 +51,28 @@ fun StoriesFullScreenView(navController: NavController) {
     storiesList.add(StoriesFullScreenModel("Экспертиза строительных работ 4",
         "Гнилые доски, дырявые стены 4, токсичные материалы, обрушение конструкций",
         picturesList[3]))
-    StoriesFullScreen(storiesList, navController)
+   // val vm = getViewModel<StoriesViewModel>()
+  //  val viewModel: StoriesViewModel by viewModel()
+    StoriesContent(vm, storiesList, navController)
+   // StoriesContent(storiesList, navController)
 }
 
-@ExperimentalCoilApi
+
 @ExperimentalFoundationApi
 @Composable
-fun StoriesFullScreen(storiesFullScreenModel: List<StoriesFullScreenModel>, navController: NavController) {
+private fun StoriesContent(
+    viewModel: StoriesViewModel,
+    storiesFullScreenModel: List<StoriesFullScreenModel>,
+    navController: NavController){
+
+  //  viewModel.vvv()
+  //  val timer: Long by viewModel.timer.observeAsState(0L)
 
     var storyIndex by remember { mutableStateOf(0) }
     var pictureUrl = picturesList[storyIndex]
     val pictureListLength = storiesFullScreenModel.size
 
- //   val responseState by viewModel.ResponseStatus.observeAsState()
+   // Log.i("timerValue", "timer = ${viewModel.timer}")
 
     ConstraintLayout {
         val (storyProgress, closeIcon, title, description) = createRefs()
@@ -135,7 +147,7 @@ fun StoriesFullScreen(storiesFullScreenModel: List<StoriesFullScreenModel>, navC
             fontWeight = FontWeight.W800,
             fontSize = 30.sp,
             color = Color.White,
-            modifier =  Modifier
+            modifier = Modifier
                 .constrainAs(title) {
                     bottom.linkTo(description.top)
                     start.linkTo(parent.start)
@@ -151,7 +163,7 @@ fun StoriesFullScreen(storiesFullScreenModel: List<StoriesFullScreenModel>, navC
             fontWeight = FontWeight.W600,
             color = Color.White,
             fontSize = 18.sp,
-            modifier =  Modifier
+            modifier = Modifier
                 .constrainAs(description) {
                     bottom.linkTo(guideLineFromBottom)
                     start.linkTo(parent.start)
@@ -160,7 +172,6 @@ fun StoriesFullScreen(storiesFullScreenModel: List<StoriesFullScreenModel>, navC
                 .padding(start = 20.dp, end = 20.dp)
         )
     }
-
 }
 
 @ExperimentalFoundationApi
