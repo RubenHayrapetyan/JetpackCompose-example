@@ -8,7 +8,12 @@
     <string name="zayavka_otpravlena">Заявка отправлена!</string>
     <string name="favorite">Избранное</string>
     <string name="vibrat_dom">Выбрать дом</string>
+    <string name="configurator">Конфигуратор</string>
+    <string name="foundation">Фундамент</string>
+    <string name="facade">Фасад</string>
+    <string name="delivery">Доставка</string>
     <string name="pereyti_v_sdelku">Перейти в сделку</string>
+    <string name="sformirovali_konfiguraciyu_no">Сформировали конфигурацию, но можно её изменить</string>
     <string name="nam_potrebuetsya_nemnogo">Нам потребуется немного времени чтобы подтвердить старт
         работ у застройщика, а потом свяжемся с вами.</string>
     <string name="skoro_tut_budet_marketplace">Скоро тут будет маркетплейс земельных участков</string>

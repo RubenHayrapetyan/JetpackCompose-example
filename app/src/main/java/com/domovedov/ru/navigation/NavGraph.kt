@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.domovedov.ru.ui.favorites.FavoritesScreen
 import com.domovedov.ru.ui.home.HomeScreen
+import com.domovedov.ru.ui.home.configurator.ConfiguratorScreen
 import com.domovedov.ru.ui.home.housecard.HouseCard
 import com.domovedov.ru.ui.home.stories.StoriesFullScreenView
 import com.domovedov.ru.ui.more.MoreScreen
@@ -25,10 +26,11 @@ fun Navigation(navController: NavHostController) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         addHomeScreen(navController)
         addRegionScreen()
-        addMyProjectScreen()
+        addMyProjectScreen(navController)
         addFavoritesScreen()
         addMoreScreen()
      //   addHouseCardScreen()
+        addConfiguratorScreen(navController)
         addStoriesFullScreen(navController)
 
     }
@@ -41,9 +43,9 @@ private fun NavGraphBuilder.addRegionScreen() {
     }
 }
 @ExperimentalPagerApi
-private fun NavGraphBuilder.addMyProjectScreen() {
+private fun NavGraphBuilder.addMyProjectScreen(navController: NavController) {
     composable(NavigationItem.MyProject.route) {
-        MyProjectScreen()
+        MyProjectScreen(navController)
     }
 }
 
@@ -85,6 +87,15 @@ private fun NavGraphBuilder.addMoreScreen() {
 private fun NavGraphBuilder.addStoriesFullScreen(navController: NavController) {
     composable(Screen.StoriesFullScreen.route) {
         StoriesFullScreenView(navController)
+    }
+}
+
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
+private fun NavGraphBuilder.addConfiguratorScreen(navController: NavController) {
+    composable(Screen.ConfiguratorScreen.route) {
+        ConfiguratorScreen()
     }
 }
 
