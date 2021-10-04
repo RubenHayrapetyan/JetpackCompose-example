@@ -16,6 +16,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,7 +38,7 @@ fun ConfiguratorScreen() {
     Column(
         Modifier
             .fillMaxSize()
-            .padding(top = 45.dp, bottom = 22.5.dp)) {
+            .padding(top = 45.dp)) {
 
         Image(
             modifier = Modifier
@@ -49,6 +50,7 @@ fun ConfiguratorScreen() {
         ConstraintLayout(
             Modifier
                 .verticalScroll(ScrollState(0))
+                .padding(top = 45.dp)
         ) {
             val ( configuratorTitle, configuratorDescription,
                 callImg, foundation, facade, delivery, exactCoast) = createRefs()
@@ -58,7 +60,7 @@ fun ConfiguratorScreen() {
                     .constrainAs(configuratorTitle) {
                         // top.linkTo(backArrow.bottom)
                     }
-                    .padding(top = 22.5.dp, start = 20.dp),
+                    .padding(start = 20.dp),
                 text = stringResource(id = R.string.configurator),
                 fontSize = 27.sp,
                 fontWeight = FontWeight.W800,
@@ -78,13 +80,15 @@ fun ConfiguratorScreen() {
             )
 
             Text(
+                textAlign = TextAlign.Start,
                 modifier = Modifier
+                    .padding(top = 10.dp, end = 10.dp, start = 20.dp)
                     .constrainAs(configuratorDescription) {
                         top.linkTo(configuratorTitle.bottom)
                         start.linkTo(parent.start)
                         end.linkTo(callImg.start)
                     }
-                    .padding(top = 10.dp, end = 10.dp, start = 20.dp)
+                    .fillMaxWidth()
                 ,
                 text = stringResource(id = R.string.sformirovali_konfiguraciyu_no),
                 fontSize = 16.sp,
@@ -127,7 +131,9 @@ fun ConfiguratorScreen() {
                     .constrainAs(exactCoast){
                         top.linkTo(delivery.bottom)
                         start.linkTo(parent.start)
+                        end.linkTo(parent.end)
                     }
+                    .padding(top = 50.dp, end = 20.dp, bottom = 20.dp)
             )
         }
     }
@@ -230,12 +236,12 @@ private fun DeliveryRow(
 private fun ExactCoast(modifier: Modifier){
 
     ConstraintLayout(modifier = modifier
-        .padding(top = 50.dp, start = 20.dp, end = 20.dp, bottom = 20.dp)
     ) {
         val (costTitle, cost, costDescription, greyLine,
             mortgageTitle, mortgageDescription, toggle) = createRefs()
 
         Text(
+            textAlign = TextAlign.Start,
             text = stringResource(id = R.string.tochnaya_stoimost),
             fontSize = 20.sp,
             fontWeight = FontWeight.W800,
@@ -247,6 +253,7 @@ private fun ExactCoast(modifier: Modifier){
                     end.linkTo(cost.start)
                 }
                 .padding(end = 10.dp)
+                .fillMaxWidth()
         )
 
         Text(
