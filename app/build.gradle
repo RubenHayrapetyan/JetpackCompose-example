@@ -77,10 +77,18 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc01"
 
     // DI
-    implementation "org.koin:koin-android:2.2.0"
-    implementation "org.koin:koin-androidx-scope:2.2.0"
-    implementation 'org.koin:koin-androidx-viewmodel:2.2.0'
-    implementation "org.koin:koin-android-architecture:0.8.2"
+//    implementation "org.koin:koin-android:2.2.0"
+//    implementation "org.koin:koin-androidx-scope:2.2.0"
+//    implementation 'org.koin:koin-androidx-viewmodel:2.2.0'
+//    implementation "org.koin:koin-android-architecture:0.8.2"
+
+    // Koin for Jetpack Compose
+    implementation "io.insert-koin:koin-androidx-compose:$koin_version"
+    // Koin core features
+    implementation "io.insert-koin:koin-core:$koin_version"
+    // Koin main features for Android (Scope,ViewModel ...)
+    implementation "io.insert-koin:koin-android:$koin_version"
+  //  implementation "io.insert-koin:koin-androidx:$koin_version"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

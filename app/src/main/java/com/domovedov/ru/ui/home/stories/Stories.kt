@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -22,54 +23,42 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.domovedov.entities.local.StoriesFullScreenModel
 import com.domovedov.ru.R
 import com.domovedov.ru.noRippleClickable
+import com.domovedov.ru.ui.home.configurator.storiesList
 import com.domovedov.ru.ui.home.picturesList
+import org.koin.androidx.compose.getViewModel
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
 fun StoriesFullScreenView(navController: NavController) {
 
-    val storiesList = mutableListOf<StoriesFullScreenModel>()
-    storiesList.add(StoriesFullScreenModel("Экспертиза строительных работ",
-        "Гнилые доски, дырявые стены, токсичные материалы, обрушение конструкций",
-    picturesList[0]))
-    storiesList.add(StoriesFullScreenModel("Экспертиза строительных работ 2",
-        "Гнилые доски, дырявые стены 2, токсичные материалы, обрушение конструкций",
-        picturesList[1]))
-    storiesList.add(StoriesFullScreenModel("Экспертиза строительных работ 3",
-        "Гнилые доски, дырявые стены 3, токсичные материалы, обрушение конструкций",
-        picturesList[2]))
-    storiesList.add(StoriesFullScreenModel("Экспертиза строительных работ 4",
-        "Гнилые доски, дырявые стены 4, токсичные материалы, обрушение конструкций",
-        picturesList[3]))
-   // val vm = getViewModel<StoriesViewModel>()
-  //  val viewModel: StoriesViewModel by viewModel()
-    StoriesContent( storiesList, navController)
-   // StoriesContent(storiesList, navController)
+    val vm = getViewModel<StoriesViewModel>()
+    StoriesContent( vm, storiesList, navController)
 }
 
 
 @ExperimentalFoundationApi
 @Composable
 private fun StoriesContent(
- //   viewModel: StoriesViewModel,
+    vm: StoriesViewModel,
     storiesFullScreenModel: List<StoriesFullScreenModel>,
     navController: NavController){
 
-  //  viewModel.vvv()
-  //  val timer: Long by viewModel.timer.observeAsState(0L)
+    vm.startAndInitTimer()
+    val timer: Long by vm.timer.observeAsState(0L)
 
     var storyIndex by remember { mutableStateOf(0) }
     var pictureUrl = picturesList[storyIndex]
     val pictureListLength = storiesFullScreenModel.size
 
-   // Log.i("timerValue", "timer = ${viewModel.timer}")
+    Log.i("timerValue", "timer = ${timer}")
 
     ConstraintLayout {
         val (storyProgress, closeIcon, title, description) = createRefs()

@@ -3,6 +3,23 @@ package com.domovedov.ru.ui.home.configurator
 import com.domovedov.entities.local.DeliveryLocalModel
 import com.domovedov.entities.local.FacadeLocalModel
 import com.domovedov.entities.local.FoundationLocalModel
+import com.domovedov.entities.local.StoriesFullScreenModel
+import com.domovedov.ru.ui.home.picturesList
+
+val storiesList = listOf(
+    StoriesFullScreenModel("Экспертиза строительных работ",
+        "Гнилые доски, дырявые стены, токсичные материалы, обрушение конструкций",
+        picturesList[0]),
+    StoriesFullScreenModel("Экспертиза строительных работ 2",
+        "Гнилые доски, дырявые стены 2, токсичные материалы, обрушение конструкций",
+        picturesList[1]),
+            StoriesFullScreenModel("Экспертиза строительных работ 3",
+    "Гнилые доски, дырявые стены 3, токсичные материалы, обрушение конструкций",
+    picturesList[2]),
+    StoriesFullScreenModel("Экспертиза строительных работ 4",
+        "Гнилые доски, дырявые стены 4, токсичные материалы, обрушение конструкций",
+        picturesList[3])
+)
 
 val foundationList = listOf(
     FoundationLocalModel(
