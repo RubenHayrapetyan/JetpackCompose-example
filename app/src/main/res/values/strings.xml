@@ -12,7 +12,11 @@
     <string name="foundation">Фундамент</string>
     <string name="facade">Фасад</string>
     <string name="delivery">Доставка</string>
+    <string name="tochnaya_stoimost">Точная стоимость</string>
+    <string name="esli_chto_to_potrebuetsya">Если что-то потребуется изменить, то еще будет такая возможность</string>
     <string name="pereyti_v_sdelku">Перейти в сделку</string>
+    <string name="need_mortgage">Нужна ипотека</string>
+    <string name="we_will_fill">Мы сами все заполним и отправим заявку во все банки</string>
     <string name="sformirovali_konfiguraciyu_no">Сформировали конфигурацию, но можно её изменить</string>
     <string name="nam_potrebuetsya_nemnogo">Нам потребуется немного времени чтобы подтвердить старт
         работ у застройщика, а потом свяжемся с вами.</string>

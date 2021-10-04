@@ -2,13 +2,17 @@ package com.domovedov.ru.ui.home.configurator
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.IconToggleButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,7 +37,7 @@ fun ConfiguratorScreen() {
     Column(
         Modifier
             .fillMaxSize()
-            .padding(top = 45.dp)) {
+            .padding(top = 45.dp, bottom = 22.5.dp)) {
 
         Image(
             modifier = Modifier
@@ -47,14 +51,14 @@ fun ConfiguratorScreen() {
                 .verticalScroll(ScrollState(0))
         ) {
             val ( configuratorTitle, configuratorDescription,
-                callImg, foundation, facade, delivery) = createRefs()
+                callImg, foundation, facade, delivery, exactCoast) = createRefs()
 
             Text(
                 modifier = Modifier
                     .constrainAs(configuratorTitle) {
-                       // top.linkTo(backArrow.bottom)
+                        // top.linkTo(backArrow.bottom)
                     }
-                    .padding(top = 45.dp, start = 20.dp),
+                    .padding(top = 22.5.dp, start = 20.dp),
                 text = stringResource(id = R.string.configurator),
                 fontSize = 27.sp,
                 fontWeight = FontWeight.W800,
@@ -75,10 +79,13 @@ fun ConfiguratorScreen() {
 
             Text(
                 modifier = Modifier
-                    .padding(top = 10.dp, start = 20.dp)
                     .constrainAs(configuratorDescription) {
                         top.linkTo(configuratorTitle.bottom)
-                    },
+                        start.linkTo(parent.start)
+                        end.linkTo(callImg.start)
+                    }
+                    .padding(top = 10.dp, end = 10.dp, start = 20.dp)
+                ,
                 text = stringResource(id = R.string.sformirovali_konfiguraciyu_no),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W600,
@@ -115,6 +122,13 @@ fun ConfiguratorScreen() {
                 deliveryLocalModel = deliveryList
             )
 
+            ExactCoast(
+                modifier = Modifier
+                    .constrainAs(exactCoast){
+                        top.linkTo(delivery.bottom)
+                        start.linkTo(parent.start)
+                    }
+            )
         }
     }
 }
@@ -208,6 +222,106 @@ private fun DeliveryRow(
                     deliveryLocalModel = deliveryLocalModel[item]
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun ExactCoast(modifier: Modifier){
+
+    ConstraintLayout(modifier = modifier
+        .padding(top = 50.dp, start = 20.dp, end = 20.dp, bottom = 20.dp)
+    ) {
+        val (costTitle, cost, costDescription, greyLine,
+            mortgageTitle, mortgageDescription, toggle) = createRefs()
+
+        Text(
+            text = stringResource(id = R.string.tochnaya_stoimost),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.W800,
+            color = Color.Black,
+            modifier = Modifier
+                .constrainAs(costTitle) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(cost.start)
+                }
+                .padding(end = 10.dp)
+        )
+
+        Text(
+            text = "4.600.000" + "R",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.W800,
+            color = Color.Black,
+            modifier = Modifier
+                .constrainAs(cost){
+                    top.linkTo(parent.top)
+                    end.linkTo(parent.end)
+                }
+        )
+
+        Text(
+            text = stringResource(id = R.string.esli_chto_to_potrebuetsya),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.W600,
+            color = Color.Black,
+            modifier = Modifier
+                .constrainAs(costDescription){
+                    top.linkTo(costTitle.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(cost.start)
+                }
+                .padding(top = 5.dp, end = 2.dp)
+        )
+        
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .padding(top = 25.dp)
+                .background(color = colorResource(id = R.color.grey2))
+                .constrainAs(greyLine) {
+                    top.linkTo(costDescription.bottom)
+                }
+        ) {}
+
+        Text(
+            text = stringResource(id = R.string.need_mortgage),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.W600,
+            color = Color.Black,
+            modifier = Modifier
+                .constrainAs(mortgageTitle) {
+                    top.linkTo(greyLine.bottom)
+                    start.linkTo(parent.start)
+                }
+                .padding(top = 25.dp)
+        )
+
+        Text(
+            text = stringResource(id = R.string.we_will_fill),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.W600,
+            color = Color.Black,
+            modifier = Modifier
+                .constrainAs(mortgageDescription) {
+                    top.linkTo(mortgageTitle.bottom)
+                    start.linkTo(parent.start)
+                }
+                .padding(top = 5.dp)
+        )
+        
+        IconToggleButton(checked = false, onCheckedChange = {
+
+        },
+        modifier = Modifier.constrainAs(toggle){
+            top.linkTo(mortgageTitle.top)
+            bottom.linkTo(mortgageDescription.bottom)
+            end.linkTo(parent.end)
+        }
+        ) {
+            
         }
     }
 }

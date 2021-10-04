@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 
 class TimerService {
 
-    private lateinit var timerDown: CountDownTimer
+    private lateinit var timerUp: CountDownTimer
 
     private val _timer: MutableLiveData<Long> by lazy { MutableLiveData<Long>() }
     val timer: LiveData<Long> = _timer
@@ -17,21 +17,20 @@ class TimerService {
     private var milliseconds = 0L
     private var timerIsStopped = true
     private var timerIsRunning = false
-    private val tenSeconds = 10 * 1000L
+//    private val tenSeconds = 10 * 1000L
 
     fun timerIsRunning(): Boolean = timerIsRunning
 
-    private fun initCountDownTimer() {
-        timerDown = object : CountDownTimer(tenSeconds, 1000) {
+    private fun initCountUpTimer(seconds: Long) {
+        val intervalSeconds: Long = 1
+
+        timerUp = object : CountDownTimer(seconds * 1000 , intervalSeconds ) {
             override fun onTick(millisUntilFinished: Long) {
-                _timer.value = millisUntilFinished
-                milliseconds = millisUntilFinished
-                _timerIsFinished.value = false
+                _timer.value = (seconds * 1000 - millisUntilFinished)
             }
 
             override fun onFinish() {
                 _timerIsFinished.value = true
-                milliseconds = 0L
             }
         }
     }
@@ -44,11 +43,11 @@ class TimerService {
         return milliseconds
     }
 
-    fun startTimer() {
-        initCountDownTimer()
-        if (this::timerDown.isInitialized) {
+    fun startTimer(seconds: Long) {
+        initCountUpTimer(seconds)
+        if (this::timerUp.isInitialized) {
             if (timerIsStopped) {
-                timerDown.start()
+                timerUp.start()
                 timerIsStopped = false
                 timerIsRunning = true
             }
@@ -56,8 +55,8 @@ class TimerService {
     }
 
     fun stopTimer() {
-        if (this::timerDown.isInitialized) {
-            timerDown.cancel()
+        if (this::timerUp.isInitialized) {
+            timerUp.cancel()
             timerIsStopped = true
             timerIsRunning = false
         }

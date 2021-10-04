@@ -29,6 +29,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.domovedov.entities.local.StoriesFullScreenModel
 import com.domovedov.ru.R
+import com.domovedov.ru.activities.MainActivity
 import com.domovedov.ru.noRippleClickable
 import com.domovedov.ru.ui.home.configurator.storiesList
 import com.domovedov.ru.ui.home.picturesList
@@ -44,6 +45,7 @@ fun StoriesFullScreenView(navController: NavController) {
 }
 
 
+@ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
 private fun StoriesContent(
@@ -51,14 +53,12 @@ private fun StoriesContent(
     storiesFullScreenModel: List<StoriesFullScreenModel>,
     navController: NavController){
 
-    vm.startAndInitTimer()
-    val timer: Long by vm.timer.observeAsState(0L)
 
     var storyIndex by remember { mutableStateOf(0) }
     var pictureUrl = picturesList[storyIndex]
     val pictureListLength = storiesFullScreenModel.size
 
-    Log.i("timerValue", "timer = ${timer}")
+
 
     ConstraintLayout {
         val (storyProgress, closeIcon, title, description) = createRefs()
@@ -105,6 +105,8 @@ private fun StoriesContent(
         }
 
         StoryTimeProgress(
+            storiesFullScreenModel,
+            vm = vm,
             modifier = Modifier
                 .constrainAs(storyProgress) {
                     top.linkTo(parent.top, margin = 30.dp)
@@ -160,7 +162,20 @@ private fun StoriesContent(
 
 @ExperimentalFoundationApi
 @Composable
-fun StoryTimeProgress(modifier: Modifier, storyCount: Int) {
+fun StoryTimeProgress(
+    storiesFullScreenModel: List<StoriesFullScreenModel>,
+    vm: StoriesViewModel,
+    modifier: Modifier,
+    storyCount: Int
+) {
+    val seconds = 10L
+    vm.startAndInitTimer(seconds)
+    val timer: Long by vm.timer.observeAsState(0L)
+    var progressState by remember {
+        mutableStateOf(0f)
+    }
+    Log.i("timerValue", "timer = ${timer.toFloat() / 10000}")
+
     LazyVerticalGrid(
         cells = GridCells.Fixed(storyCount),
         modifier = modifier
@@ -168,13 +183,16 @@ fun StoryTimeProgress(modifier: Modifier, storyCount: Int) {
         items(storyCount) {
             LazyRow {
                 items(1) { item ->
+//                    storiesFullScreenModel[item].storyProgress = timer.toFloat() / seconds * 1000
+//                    val temp = storiesFullScreenModel[item].storyProgress
+//                    progressState = temp
                     Row(
-                        Modifier
-                            .fillParentMaxWidth()
-                            .height(10.dp)
+                            Modifier
+                                .fillParentMaxWidth()
+                                .height(10.dp)
                     ) {
                         LinearProgressIndicator(
-                            progress = 0.2f,
+                            progress = timer.toFloat() / 10000,
                             modifier = Modifier
                                 .padding(4.dp)
                                 .fillMaxWidth(),

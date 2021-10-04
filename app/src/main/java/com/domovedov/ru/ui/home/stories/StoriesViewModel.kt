@@ -10,6 +10,13 @@ class StoriesViewModel(
     private val timerService: TimerService
 ): BaseViewModel() {
 
+    private val _bottomNavBar by lazy { MutableLiveData(true) }
+    val bottomNavBar: LiveData<Boolean> get() = _bottomNavBar
+
+    fun setBottomNavBar(isShown: Boolean){
+        _bottomNavBar.value = isShown
+    }
+
     fun vvv(){
         Log.i("vsdvav", "Yes")
     }
@@ -19,8 +26,8 @@ class StoriesViewModel(
     val timer: LiveData<Long> = timerService.timer
     val isTimerFinished: LiveData<Boolean> = timerService.isTimerFinished
 
-    fun startAndInitTimer(){
-        timerService.startTimer()
+    fun startAndInitTimer(seconds: Long){
+        timerService.startTimer(seconds)
     }
 
     fun stopTimer(){

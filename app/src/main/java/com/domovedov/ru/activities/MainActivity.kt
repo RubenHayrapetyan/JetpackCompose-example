@@ -3,6 +3,7 @@ package com.domovedov.ru.activities
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -10,8 +11,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -19,8 +20,10 @@ import androidx.navigation.compose.rememberNavController
 import com.domovedov.ru.navigation.BottomNavigationBar
 import com.domovedov.ru.navigation.Navigation
 import com.domovedov.ru.navigation.Screen
+import com.domovedov.ru.ui.home.stories.StoriesViewModel
 import com.domovedov.ru.ui.theme.DomovedovTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
+import org.koin.androidx.compose.getViewModel
 
 @ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
@@ -35,13 +38,22 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     val navController = rememberNavController()
+                    val vm = getViewModel<StoriesViewModel>()
+                    val navBarVisibility: Boolean by vm.bottomNavBar.observeAsState(true)
+                    var bottomBarState by remember{ mutableStateOf(true) }
 
                     Scaffold(
                         //   topBar = { TopBar() },
+
                         bottomBar = {
-
+                            bottomBarState = navBarVisibility
+                            if (navBarVisibility){
                                 BottomNavigationBar(navController)
+                              //  Toast.makeText(this, "Visible", Toast.LENGTH_SHORT).show()
+                            }else{
+                               // Toast.makeText(this, "Hidden", Toast.LENGTH_SHORT).show()
 
+                            }
                         }
                     ) {
                         Navigation(navController)
