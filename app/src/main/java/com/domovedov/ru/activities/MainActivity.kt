@@ -19,6 +19,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.domovedov.ru.navigation.BottomNavigationBar
 import com.domovedov.ru.navigation.Navigation
+import com.domovedov.ru.navigation.NavigationItem
 import com.domovedov.ru.navigation.Screen
 import com.domovedov.ru.ui.home.stories.StoriesViewModel
 import com.domovedov.ru.ui.theme.DomovedovTheme
@@ -38,21 +39,20 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     val navController = rememberNavController()
-                    val vm = getViewModel<StoriesViewModel>()
-                    val navBarVisibility: Boolean by vm.bottomNavBar.observeAsState(true)
-                    var bottomBarState by remember{ mutableStateOf(true) }
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentRoute = navBackStackEntry?.destination?.route
 
                     Scaffold(
                         //   topBar = { TopBar() },
-
                         bottomBar = {
-                            bottomBarState = navBarVisibility
-                            if (navBarVisibility){
+                            if (
+                                currentRoute == NavigationItem.Home.route ||
+                                currentRoute == NavigationItem.Region.route ||
+                                currentRoute == NavigationItem.MyProject.route ||
+                                currentRoute == NavigationItem.Favorites.route ||
+                                currentRoute == NavigationItem.More.route
+                            ){
                                 BottomNavigationBar(navController)
-                              //  Toast.makeText(this, "Visible", Toast.LENGTH_SHORT).show()
-                            }else{
-                               // Toast.makeText(this, "Hidden", Toast.LENGTH_SHORT).show()
-
                             }
                         }
                     ) {

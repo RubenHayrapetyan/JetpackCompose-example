@@ -6,11 +6,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.IconToggleButton
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -38,7 +39,8 @@ fun ConfiguratorScreen() {
     Column(
         Modifier
             .fillMaxSize()
-            .padding(top = 45.dp)) {
+            .padding(top = 45.dp)
+    ) {
 
         Image(
             modifier = Modifier
@@ -47,12 +49,13 @@ fun ConfiguratorScreen() {
             contentDescription = "Back arrow"
         )
 
+        Spacer(modifier = Modifier.padding(top = 45.dp))
+
         ConstraintLayout(
             Modifier
                 .verticalScroll(ScrollState(0))
-                .padding(top = 45.dp)
         ) {
-            val ( configuratorTitle, configuratorDescription,
+            val (configuratorTitle, configuratorDescription,
                 callImg, foundation, facade, delivery, exactCoast) = createRefs()
 
             Text(
@@ -82,14 +85,12 @@ fun ConfiguratorScreen() {
             Text(
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(top = 10.dp, end = 10.dp, start = 20.dp)
+                    .padding(top = 10.dp, start = 20.dp, end = 80.dp)
                     .constrainAs(configuratorDescription) {
                         top.linkTo(configuratorTitle.bottom)
                         start.linkTo(parent.start)
-                        end.linkTo(callImg.start)
                     }
-                    .fillMaxWidth()
-                ,
+                    .fillMaxWidth(),
                 text = stringResource(id = R.string.sformirovali_konfiguraciyu_no),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W600,
@@ -128,12 +129,11 @@ fun ConfiguratorScreen() {
 
             ExactCoast(
                 modifier = Modifier
-                    .constrainAs(exactCoast){
+                    .constrainAs(exactCoast) {
                         top.linkTo(delivery.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
                     }
-                    .padding(top = 50.dp, end = 20.dp, bottom = 20.dp)
+                    .fillMaxWidth()
+                    .padding(top = 50.dp, start = 20.dp, end = 20.dp, bottom = 20.dp)
             )
         }
     }
@@ -233,65 +233,71 @@ private fun DeliveryRow(
 }
 
 @Composable
-private fun ExactCoast(modifier: Modifier){
+private fun ExactCoast(modifier: Modifier) {
+    var price by remember{
+        mutableStateOf(0)
+    }
 
-    ConstraintLayout(modifier = modifier
+    ConstraintLayout(
+        modifier = modifier.fillMaxWidth()
     ) {
-        val (costTitle, cost, costDescription, greyLine,
-            mortgageTitle, mortgageDescription, toggle) = createRefs()
+        val (costRow, greyLine, mortgageTitle, mortgageDescription, toggle,
+            continueBtn, moreInfo
+        ) = createRefs()
 
-        Text(
-            textAlign = TextAlign.Start,
-            text = stringResource(id = R.string.tochnaya_stoimost),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.W800,
-            color = Color.Black,
+        Row(modifier = Modifier
+            .constrainAs(costRow) {
+                top.linkTo(parent.top)
+            }
+            .fillMaxWidth()
+        ) {
+
+            Column(
+                modifier = Modifier
+                    .weight(0.65f)
+                    .fillMaxWidth()
+            ) {
+
+                Text(
+                    textAlign = TextAlign.Start,
+                    text = stringResource(id = R.string.tochnaya_stoimost),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.W800,
+                    color = Color.Black,
+                    modifier = Modifier.padding(end = 10.dp)
+                )
+
+                Text(
+                    text = stringResource(id = R.string.esli_chto_to_potrebuetsya),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.W600,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(top = 5.dp, end = 2.dp)
+                )
+            }
+
+            Text(
+                textAlign = TextAlign.End,
+                text = "4.600.000" + "R",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.W800,
+                color = Color.Black,
+                modifier = Modifier.weight(0.35f)
+            )
+        }
+
+        Divider(
+            color = colorResource(id = R.color.grey2),
+            thickness = 1.dp,
             modifier = Modifier
-                .constrainAs(costTitle) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(cost.start)
-                }
-                .padding(end = 10.dp)
                 .fillMaxWidth()
-        )
-
-        Text(
-            text = "4.600.000" + "R",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.W800,
-            color = Color.Black,
-            modifier = Modifier
-                .constrainAs(cost){
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                }
-        )
-
-        Text(
-            text = stringResource(id = R.string.esli_chto_to_potrebuetsya),
-            fontSize = 12.sp,
-            fontWeight = FontWeight.W600,
-            color = Color.Black,
-            modifier = Modifier
-                .constrainAs(costDescription){
-                    top.linkTo(costTitle.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(cost.start)
-                }
-                .padding(top = 5.dp, end = 2.dp)
-        )
-        
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
                 .padding(top = 25.dp)
                 .background(color = colorResource(id = R.color.grey2))
                 .constrainAs(greyLine) {
-                    top.linkTo(costDescription.bottom)
+                    top.linkTo(costRow.bottom)
                 }
-        ) {}
+        )
 
         Text(
             text = stringResource(id = R.string.need_mortgage),
@@ -318,17 +324,51 @@ private fun ExactCoast(modifier: Modifier){
                 }
                 .padding(top = 5.dp)
         )
-        
+
         IconToggleButton(checked = false, onCheckedChange = {
 
         },
-        modifier = Modifier.constrainAs(toggle){
-            top.linkTo(mortgageTitle.top)
-            bottom.linkTo(mortgageDescription.bottom)
-            end.linkTo(parent.end)
-        }
+            modifier = Modifier.constrainAs(toggle){
+                top.linkTo(mortgageTitle.top)
+                bottom.linkTo(mortgageDescription.bottom)
+                end.linkTo(parent.end)
+            }
         ) {
-            
+
         }
+
+        Button(
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.blue)),
+            onClick = { },
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(continueBtn) {
+                    top.linkTo(mortgageDescription.bottom)
+                }
+                .padding(top = 57.dp)
+                .clip(RoundedCornerShape(50.dp))
+        ) {
+            Text(
+                text = stringResource(id = R.string.continue_text),
+                fontWeight = FontWeight.W800,
+                fontSize = 16.sp,
+                color = Color.White,
+                modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
+            )
+        }
+        
+        Text(
+            text = stringResource(id = R.string.more_info),
+            fontWeight = FontWeight.W600,
+            fontSize = 14.sp,
+            color = colorResource(id = R.color.blue),
+            modifier = Modifier
+                .padding(top = 15.dp)
+                .constrainAs(moreInfo){
+                    top.linkTo(continueBtn.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+        )
     }
 }
