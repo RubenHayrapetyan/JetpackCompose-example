@@ -1,13 +1,10 @@
 package com.domovedov.ru.ui.home.configurator
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -26,15 +23,20 @@ import com.domovedov.entities.local.DeliveryLocalModel
 import com.domovedov.entities.local.FacadeLocalModel
 import com.domovedov.entities.local.FoundationLocalModel
 import com.domovedov.ru.R
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun ConfiguratorScreenPreview() {
     ConfiguratorScreen()
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun ConfiguratorScreen() {
+    val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
     Column(
         Modifier
@@ -76,6 +78,11 @@ fun ConfiguratorScreen() {
                         top.linkTo(parent.top)
                         bottom.linkTo(configuratorTitle.bottom)
                         end.linkTo(parent.end)
+                    }
+                    .clickable {
+                        coroutineScope.launch {
+                            modalBottomSheetState.show()
+                        }
                     }
                     .padding(end = 30.dp, top = 45.dp),
                 painter = painterResource(id = R.drawable.ic_call),

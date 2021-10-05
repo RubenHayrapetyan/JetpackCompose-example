@@ -12,6 +12,9 @@
     <string name="foundation">Фундамент</string>
     <string name="facade">Фасад</string>
     <string name="delivery">Доставка</string>
+    <string name="write_via_telegram">Написать в Telegram</string>
+    <string name="write_via_whatsapp">Написать в WhatsApp</string>
+    <string name="write_via_phone">Позвонить по телефону</string>
     <string name="tochnaya_stoimost">Точная стоимость</string>
     <string name="esli_chto_to_potrebuetsya">Если что-то потребуется изменить, то еще будет такая возможность</string>
     <string name="pereyti_v_sdelku">Перейти в сделку</string>

@@ -127,6 +127,7 @@ fun HomeScreen(navController: NavController) {
                 coroutineScope.launch {
                     modalBottomSheetState.show()
                 }
+
             }
 
         }
