@@ -66,7 +66,7 @@ fun ContactsBottomSheet(modalBottomSheetValue: ModalBottomSheetValue) {
 
                 Row() {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_telegram),
+                        painter = painterResource(id = R.drawable.ic_phone),
                         contentDescription = "Phone Img"
                     )
                     Text(
