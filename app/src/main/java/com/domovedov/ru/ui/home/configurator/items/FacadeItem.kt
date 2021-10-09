@@ -25,7 +25,8 @@ import com.domovedov.ru.R
 
 @Composable
 fun FacadeItem(
-    facadeLocalModel: FacadeLocalModel
+    facadeLocalModel: FacadeLocalModel,
+    onClick: () -> Unit
 ) {
     var isSelectedState by remember { mutableStateOf(facadeLocalModel.isSelected) }
 
@@ -41,8 +42,9 @@ fun FacadeItem(
                 )
             )
             .clickable {
-                facadeLocalModel.isSelected = !facadeLocalModel.isSelected
-                isSelectedState = facadeLocalModel.isSelected
+                       onClick.invoke()
+//                facadeLocalModel.isSelected = !facadeLocalModel.isSelected
+//                isSelectedState = facadeLocalModel.isSelected
             }
         ,
     ) {

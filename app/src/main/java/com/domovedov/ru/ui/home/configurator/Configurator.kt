@@ -3,7 +3,6 @@ package com.domovedov.ru.ui.home.configurator
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -19,23 +18,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.domovedov.entities.local.DeliveryLocalModel
 import com.domovedov.entities.local.FacadeLocalModel
 import com.domovedov.entities.local.FoundationLocalModel
 import com.domovedov.ru.R
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import com.domovedov.ru.navigation.Screen
+import com.domovedov.ru.noRippleClickable
 
 @ExperimentalMaterialApi
 @Preview
 @Composable
 fun ConfiguratorScreenPreview() {
-    ConfiguratorScreen()
+
+    val navController = rememberNavController()
+    ConfiguratorScreen(navController)
 }
 
 @ExperimentalMaterialApi
 @Composable
-fun ConfiguratorScreen() {
+fun ConfiguratorScreen(navController: NavController) {
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
     Column(
@@ -79,10 +82,8 @@ fun ConfiguratorScreen() {
                         bottom.linkTo(configuratorTitle.bottom)
                         end.linkTo(parent.end)
                     }
-                    .clickable {
-                        coroutineScope.launch {
-                            modalBottomSheetState.show()
-                        }
+                    .noRippleClickable {
+                        navController.navigate(Screen.ContactsBottomSheet.route)
                     }
                     .padding(end = 30.dp, top = 45.dp),
                 painter = painterResource(id = R.drawable.ic_call),
@@ -182,6 +183,8 @@ private fun FacadeRow(
     modifier: Modifier,
     facadeLocalModel: List<FacadeLocalModel>
 ) {
+    var isSelectedState by remember { mutableStateOf(facadeLocalModel[0].isSelected) }
+
     Column(
         modifier = modifier,
     ) {
@@ -202,7 +205,13 @@ private fun FacadeRow(
             items(facadeLocalModel.size) { item ->
                 FacadeItem(
                     facadeLocalModel = facadeLocalModel[item]
-                )
+                ){
+                    facadeLocalModel.forEach{
+                        it.isSelected = false
+                    }
+                    isSelectedState = facadeLocalModel[item].isSelected
+
+                }
             }
         }
     }
@@ -248,7 +257,7 @@ private fun ExactCoast(modifier: Modifier) {
     ConstraintLayout(
         modifier = modifier.fillMaxWidth()
     ) {
-        val (costRow, greyLine, mortgageTitle, mortgageDescription, toggle,
+        val (costRow, greyLine, mortgageRow, mortgageDescription, toggle,
             continueBtn, moreInfo
         ) = createRefs()
 
@@ -306,43 +315,50 @@ private fun ExactCoast(modifier: Modifier) {
                 }
         )
 
-        Text(
-            text = stringResource(id = R.string.need_mortgage),
-            fontSize = 14.sp,
-            fontWeight = FontWeight.W600,
-            color = Color.Black,
-            modifier = Modifier
-                .constrainAs(mortgageTitle) {
-                    top.linkTo(greyLine.bottom)
-                    start.linkTo(parent.start)
-                }
-                .padding(top = 25.dp)
-        )
-
-        Text(
-            text = stringResource(id = R.string.we_will_fill),
-            fontSize = 12.sp,
-            fontWeight = FontWeight.W600,
-            color = Color.Black,
-            modifier = Modifier
-                .constrainAs(mortgageDescription) {
-                    top.linkTo(mortgageTitle.bottom)
-                    start.linkTo(parent.start)
-                }
-                .padding(top = 5.dp)
-        )
-
-        IconToggleButton(checked = false, onCheckedChange = {
-
-        },
-            modifier = Modifier.constrainAs(toggle){
-                top.linkTo(mortgageTitle.top)
-                bottom.linkTo(mortgageDescription.bottom)
-                end.linkTo(parent.end)
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 25.dp)
+            .constrainAs(mortgageRow) {
+                top.linkTo(greyLine.bottom)
+                start.linkTo(parent.start)
             }
         ) {
+            Column(
+                modifier = Modifier
+                    .weight(0.65f)
+                    .fillMaxWidth()
 
+            ) {
+
+                Text(
+                    text = stringResource(id = R.string.need_mortgage),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.W600,
+                    color = Color.Black,
+                    modifier = Modifier
+
+
+                )
+
+                Text(
+                    text = stringResource(id = R.string.we_will_fill),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.W600,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(top = 5.dp)
+                )
+            }
+
+//            Switch(checked = false, onCheckedChange = {
+//
+//            },
+//                modifier =
+//                Modifier.weight(0.35f)
+//            )
         }
+
+        //--------------------
 
         Button(
             colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.blue)),
@@ -350,7 +366,7 @@ private fun ExactCoast(modifier: Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .constrainAs(continueBtn) {
-                    top.linkTo(mortgageDescription.bottom)
+                    top.linkTo(mortgageRow.bottom)
                 }
                 .padding(top = 57.dp)
                 .clip(RoundedCornerShape(50.dp))

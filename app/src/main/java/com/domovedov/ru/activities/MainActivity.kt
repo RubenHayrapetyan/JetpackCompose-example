@@ -7,28 +7,35 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.plusAssign
 import com.domovedov.ru.navigation.BottomNavigationBar
 import com.domovedov.ru.navigation.Navigation
 import com.domovedov.ru.navigation.NavigationItem
 import com.domovedov.ru.navigation.Screen
 import com.domovedov.ru.ui.home.stories.StoriesViewModel
 import com.domovedov.ru.ui.theme.DomovedovTheme
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.ModalBottomSheetLayout
+import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.koin.androidx.compose.getViewModel
 
 @ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
 
+    @ExperimentalMaterialNavigationApi
     @ExperimentalPagerApi
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,22 +48,30 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentRoute = navBackStackEntry?.destination?.route
+                    val bottomSheetNavigator = rememberBottomSheetNavigator()
+                    navController.navigatorProvider += bottomSheetNavigator
 
-                    Scaffold(
-                        //   topBar = { TopBar() },
-                        bottomBar = {
-                            if (
-                                currentRoute == NavigationItem.Home.route ||
-                                currentRoute == NavigationItem.Region.route ||
-                                currentRoute == NavigationItem.MyProject.route ||
-                                currentRoute == NavigationItem.Favorites.route ||
-                                currentRoute == NavigationItem.More.route
-                            ){
-                                BottomNavigationBar(navController)
-                            }
-                        }
+
+                    ModalBottomSheetLayout(
+                        bottomSheetNavigator,
+                        sheetShape = RoundedCornerShape(20.dp)
                     ) {
-                        Navigation(navController)
+                        Scaffold(
+                            //   topBar = { TopBar() },
+                            bottomBar = {
+                                if (
+                                    currentRoute == NavigationItem.Home.route ||
+                                    currentRoute == NavigationItem.Region.route ||
+                                    currentRoute == NavigationItem.MyProject.route ||
+                                    currentRoute == NavigationItem.Favorites.route ||
+                                    currentRoute == NavigationItem.More.route
+                                ){
+                                    BottomNavigationBar(navController)
+                                }
+                            }
+                        ) {
+                            Navigation(navController)
+                        }
                     }
                 }
             }

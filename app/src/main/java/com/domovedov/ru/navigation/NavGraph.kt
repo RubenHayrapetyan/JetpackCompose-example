@@ -1,38 +1,67 @@
 package com.domovedov.ru.navigation
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.Composable
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Text
+import androidx.compose.runtime.*
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.plusAssign
+import coil.annotation.ExperimentalCoilApi
+import com.domovedov.ru.contacts.ContactsBottomSheet
 import com.domovedov.ru.ui.favorites.FavoritesScreen
 import com.domovedov.ru.ui.home.HomeScreen
 import com.domovedov.ru.ui.home.configurator.ConfiguratorScreen
-import com.domovedov.ru.ui.home.housecard.HouseCard
+import com.domovedov.ru.ui.home.housecard.HouseCardBottomSheet
 import com.domovedov.ru.ui.home.stories.StoriesFullScreenView
 import com.domovedov.ru.ui.more.MoreScreen
 import com.domovedov.ru.ui.myproject.MyProjectScreen
 import com.domovedov.ru.ui.region.RegionScreen
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.bottomSheet
+import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalCoilApi
+@ExperimentalMaterialNavigationApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun Navigation(navController: NavHostController) {
+
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         addHomeScreen(navController)
         addRegionScreen()
         addMyProjectScreen(navController)
         addFavoritesScreen()
         addMoreScreen()
-     //   addHouseCardScreen()
+        addHouseCardBottomSheet()
         addConfiguratorScreen(navController)
         addStoriesFullScreen(navController)
+        addContactsBottomSheet()
+    }
+}
 
+@ExperimentalMaterialNavigationApi
+@ExperimentalMaterialApi
+private fun NavGraphBuilder.addContactsBottomSheet(){
+    bottomSheet(Screen.ContactsBottomSheet.route){
+        ContactsBottomSheet()
+    }
+}
+
+@ExperimentalMaterialNavigationApi
+@ExperimentalMaterialApi
+private fun NavGraphBuilder.addHouseCardBottomSheet(){
+    bottomSheet(Screen.HouseCardBottomSheet.route){
+        HouseCardBottomSheet()
     }
 }
 
@@ -73,14 +102,7 @@ private fun NavGraphBuilder.addMoreScreen() {
     }
 }
 
-//@ExperimentalMaterialApi
-//@ExperimentalPagerApi
-//private fun NavGraphBuilder.addHouseCardScreen() {
-//    composable(Screen.HouseCard.route) {
-//        HouseCard()
-//    }
-//}
-
+@ExperimentalCoilApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
@@ -95,7 +117,7 @@ private fun NavGraphBuilder.addStoriesFullScreen(navController: NavController) {
 @ExperimentalPagerApi
 private fun NavGraphBuilder.addConfiguratorScreen(navController: NavController) {
     composable(Screen.ConfiguratorScreen.route) {
-        ConfiguratorScreen()
+        ConfiguratorScreen(navController)
     }
 }
 

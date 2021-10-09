@@ -1,6 +1,5 @@
 package com.domovedov.ru.ui.home
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -17,21 +16,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import com.domovedov.entities.local.HomeFilterLocalModel
 import com.domovedov.entities.local.HomeItemLocalModel
 import com.domovedov.entities.local.StoryLocalModel
 import com.domovedov.ru.R
-import com.domovedov.ru.ui.home.housecard.HouseCard
+import com.domovedov.ru.navigation.Screen
 import com.google.accompanist.pager.ExperimentalPagerApi
-import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Preview
 @Composable
 fun MainPreview() {
-  //  HomeScreen()
+    val navController = rememberNavController()
+    HomeScreen(navController = navController)
 }
 
 val storiesList = listOf(
@@ -89,10 +89,6 @@ val homeItemLocalModel = listOf(
 @Composable
 fun HomeScreen(navController: NavController) {
 
-    val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
-
-    val coroutineScope = rememberCoroutineScope()
-
     Box {
 
         Column(Modifier.fillMaxSize()) {
@@ -114,7 +110,8 @@ fun HomeScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.padding(top = 26.dp))
 
-            Text(text = "Клееный брус (15)",
+            Text(
+                text = "Клееный брус (15)",
                 Modifier.padding(start = 20.dp),
                 fontWeight = FontWeight(800).also { FontWeight.Bold },
                 fontSize = 20.sp
@@ -122,17 +119,10 @@ fun HomeScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.padding(top = 18.dp))
 
-            HomeItems(homeItemLocalModel){
-                Log.i("clickTest", "Clicked")
-                coroutineScope.launch {
-                    modalBottomSheetState.show()
-                }
-
+            HomeItems(homeItemLocalModel) {
+                navController.navigate(Screen.HouseCardBottomSheet.route)
             }
-
         }
-
-        BottomSheet(modalBottomSheetValue = modalBottomSheetState.currentValue)
     }
 }
 
@@ -151,7 +141,8 @@ private fun Stories(storiesList: List<StoryLocalModel>, navController: NavContro
             Row(
                 Modifier
                     .fillParentMaxHeight()
-                    .fillParentMaxWidth(0.3f)) {
+                    .fillParentMaxWidth(0.3f)
+            ) {
                 Story(storyResponseModel = item, navController = navController)
             }
         }
@@ -165,7 +156,7 @@ private fun Filters(filters: List<HomeFilterLocalModel>) {
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp)
     ) {
-        items(filters.size){ item->
+        items(filters.size) { item ->
             FilterTypesView(filters[item])
         }
     }
@@ -177,13 +168,14 @@ private fun Filters(filters: List<HomeFilterLocalModel>) {
 @Composable
 private fun HomeItems(
     homeItemsList: List<HomeItemLocalModel>,
-    onClick: () -> Unit){
+    onClick: () -> Unit
+) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         contentPadding = PaddingValues(bottom = 30.dp),
         modifier = Modifier.fillMaxSize()
-    ){
-        items(homeItemsList.size){ item->
+    ) {
+        items(homeItemsList.size) { item ->
             Column(Modifier.fillParentMaxSize()) {
                 HomeItemMain(homeItemsList[item]) {
                     onClick.invoke()
@@ -191,10 +183,4 @@ private fun HomeItems(
             }
         }
     }
-}
-
-@ExperimentalMaterialApi
-@Composable
-private fun BottomSheet(modalBottomSheetValue: ModalBottomSheetValue){
-    HouseCard(modalBottomSheetValue = modalBottomSheetValue)
 }
