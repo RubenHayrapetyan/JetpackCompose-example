@@ -39,7 +39,6 @@ fun ConfiguratorScreenPreview() {
 @ExperimentalMaterialApi
 @Composable
 fun ConfiguratorScreen(navController: NavController) {
-    val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
     Column(
         Modifier

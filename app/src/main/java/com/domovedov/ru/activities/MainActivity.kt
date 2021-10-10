@@ -14,6 +14,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -35,6 +36,7 @@ import org.koin.androidx.compose.getViewModel
 @ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
 
+    @ExperimentalComposeUiApi
     @ExperimentalMaterialNavigationApi
     @ExperimentalPagerApi
     @ExperimentalFoundationApi

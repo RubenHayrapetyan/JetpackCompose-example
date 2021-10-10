@@ -23,6 +23,7 @@ import com.domovedov.entities.local.HomeItemLocalModel
 import com.domovedov.entities.local.StoryLocalModel
 import com.domovedov.ru.R
 import com.domovedov.ru.navigation.Screen
+import com.domovedov.ru.ui.home.housecard.HouseCardBottomSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalMaterialApi
@@ -88,6 +89,7 @@ val homeItemLocalModel = listOf(
 @ExperimentalPagerApi
 @Composable
 fun HomeScreen(navController: NavController) {
+    val bottomState = rememberModalBottomSheetState(ModalBottomSheetValue.Expanded)
 
     Box {
 
@@ -120,11 +122,20 @@ fun HomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.padding(top = 18.dp))
 
             HomeItems(homeItemLocalModel) {
-                navController.navigate(Screen.HouseCardBottomSheet.route)
+
+               // bottomState.show()
+              //  navController.navigate(Screen.HouseCardBottomSheet.route)
             }
+         //   OpenBottomSheet(bottomState.currentValue)
         }
     }
 }
+
+//@Composable
+//@ExperimentalMaterialApi
+//private fun OpenBottomSheet(modalBottomSheetValue: ModalBottomSheetValue){
+//    HouseCardBottomSheet(modalBottomSheetValue = modalBottomSheetValue)
+//}
 
 @ExperimentalMaterialApi
 @ExperimentalCoilApi

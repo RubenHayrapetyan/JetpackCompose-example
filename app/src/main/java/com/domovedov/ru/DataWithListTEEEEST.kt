@@ -6,6 +6,8 @@ import com.domovedov.entities.local.FoundationLocalModel
 import com.domovedov.entities.local.StoriesFullScreenModel
 import com.domovedov.ru.ui.home.picturesList
 
+
+
 val storiesList = listOf(
     StoriesFullScreenModel("Экспертиза строительных работ",
         "Гнилые доски, дырявые стены, токсичные материалы, обрушение конструкций",

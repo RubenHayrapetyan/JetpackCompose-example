@@ -1,33 +1,30 @@
 package com.domovedov.ru.navigation
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.plusAssign
+import androidx.navigation.compose.dialog
 import coil.annotation.ExperimentalCoilApi
 import com.domovedov.ru.contacts.ContactsBottomSheet
 import com.domovedov.ru.ui.favorites.FavoritesScreen
 import com.domovedov.ru.ui.home.HomeScreen
 import com.domovedov.ru.ui.home.configurator.ConfiguratorScreen
-import com.domovedov.ru.ui.home.housecard.HouseCardBottomSheet
+import com.domovedov.ru.ui.home.housecard.HouseCardFullScreenDialog
 import com.domovedov.ru.ui.home.stories.StoriesFullScreenView
 import com.domovedov.ru.ui.more.MoreScreen
 import com.domovedov.ru.ui.myproject.MyProjectScreen
 import com.domovedov.ru.ui.region.RegionScreen
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
-import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @ExperimentalMaterialNavigationApi
 @ExperimentalFoundationApi
@@ -42,7 +39,7 @@ fun Navigation(navController: NavHostController) {
         addMyProjectScreen(navController)
         addFavoritesScreen()
         addMoreScreen()
-        addHouseCardBottomSheet()
+        addHouseCardBottomSheet(navController)
         addConfiguratorScreen(navController)
         addStoriesFullScreen(navController)
         addContactsBottomSheet()
@@ -57,11 +54,12 @@ private fun NavGraphBuilder.addContactsBottomSheet(){
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterialNavigationApi
 @ExperimentalMaterialApi
-private fun NavGraphBuilder.addHouseCardBottomSheet(){
+private fun NavGraphBuilder.addHouseCardBottomSheet(navController: NavController){
     bottomSheet(Screen.HouseCardBottomSheet.route){
-        HouseCardBottomSheet()
+        HouseCardFullScreenDialog(navController)
     }
 }
 
