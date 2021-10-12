@@ -22,12 +22,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.domovedov.entities.local.StoryLocalModel
 import com.domovedov.ru.R
-import com.domovedov.ru.activities.MainActivity
-import com.domovedov.ru.navigation.NavigationItem
+import com.domovedov.ru.montRegular
 import com.domovedov.ru.navigation.Screen
 
 @ExperimentalMaterialApi
@@ -40,14 +40,15 @@ fun StoriesPreview() {
         pictureUrl = picturesList[0],
         false
     )
-    //   Story(storyLocalModel)
+    val navController = rememberNavController()
+    Story(storyLocalModel, navController)
 }
 
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
 @Composable
 fun Story(storyResponseModel: StoryLocalModel, navController: NavController) {
-    val font = FontFamily(Font(R.font.mont_heavy))
+    val font = FontFamily(Font(R.font.mont_regular))
 
     var isStoryWatched by remember {
         mutableStateOf(storyResponseModel.isStoryWatched)
@@ -91,7 +92,8 @@ fun Story(storyResponseModel: StoryLocalModel, navController: NavController) {
                 text = storyResponseModel.title,
                 color = colorResource(id = R.color.white),
                 fontSize = 11.sp,
-                fontWeight = FontWeight(600)
+                fontWeight = FontWeight(600),
+                fontFamily = montRegular()
             )
         }
     }

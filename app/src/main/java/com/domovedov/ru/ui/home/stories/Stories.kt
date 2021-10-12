@@ -23,13 +23,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.domovedov.entities.local.StoriesFullScreenModel
 import com.domovedov.ru.R
-import com.domovedov.ru.activities.MainActivity
+import com.domovedov.ru.montBold
+import com.domovedov.ru.montRegular
 import com.domovedov.ru.noRippleClickable
 import com.domovedov.ru.ui.home.configurator.storiesList
 import com.domovedov.ru.ui.home.picturesList
@@ -44,7 +44,6 @@ fun StoriesFullScreenView(navController: NavController) {
     StoriesContent( vm, storiesList, navController)
 }
 
-
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
@@ -53,12 +52,9 @@ private fun StoriesContent(
     storiesFullScreenModel: List<StoriesFullScreenModel>,
     navController: NavController){
 
-
     var storyIndex by remember { mutableStateOf(0) }
     var pictureUrl = picturesList[storyIndex]
     val pictureListLength = storiesFullScreenModel.size
-
-
 
     ConstraintLayout {
         val (storyProgress, closeIcon, title, description) = createRefs()
@@ -127,9 +123,9 @@ private fun StoriesContent(
                     navController.popBackStack()
                 }
         )
-
         Text(
             text = storiesFullScreenModel[storyIndex].title,
+            fontFamily = montBold(),
             fontWeight = FontWeight.W800,
             fontSize = 30.sp,
             color = Color.White,
@@ -146,6 +142,7 @@ private fun StoriesContent(
 
         Text(
             text = storiesFullScreenModel[storyIndex].description,
+            fontFamily = montRegular(),
             fontWeight = FontWeight.W600,
             color = Color.White,
             fontSize = 18.sp,
@@ -187,9 +184,9 @@ fun StoryTimeProgress(
 //                    val temp = storiesFullScreenModel[item].storyProgress
 //                    progressState = temp
                     Row(
-                            Modifier
-                                .fillParentMaxWidth()
-                                .height(10.dp)
+                        Modifier
+                            .fillParentMaxWidth()
+                            .height(10.dp)
                     ) {
                         LinearProgressIndicator(
                             progress = timer.toFloat() / 10000,

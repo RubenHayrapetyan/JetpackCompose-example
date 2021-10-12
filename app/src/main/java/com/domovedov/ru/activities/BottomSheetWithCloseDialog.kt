@@ -19,7 +19,7 @@ fun BottomSheetWithCloseDialog(
     onClosePressed: () -> Unit,
     modifier: Modifier = Modifier,
     closeButtonColor: Color = Color.Gray,
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit
 ) {
     Box(modifier.fillMaxWidth()) {
         content()

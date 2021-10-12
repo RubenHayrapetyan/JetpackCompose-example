@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import com.domovedov.entities.local.HomeItemLocalModel
 import com.domovedov.ru.R
+import com.domovedov.ru.montBold
 import com.domovedov.ru.ui.home.HomeItemMain
 import com.domovedov.ru.ui.home.homeItemLocalModel
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -48,6 +49,7 @@ fun FavoritesScreen(){
             color = Color.Black,
             fontSize = 27.sp,
             fontWeight = FontWeight.W800,
+            fontFamily = montBold(),
             modifier = Modifier.padding(start = 20.dp)
         )
 

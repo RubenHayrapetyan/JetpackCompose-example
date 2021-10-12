@@ -22,10 +22,12 @@ import com.domovedov.entities.local.HomeFilterLocalModel
 import com.domovedov.entities.local.HomeItemLocalModel
 import com.domovedov.entities.local.StoryLocalModel
 import com.domovedov.ru.R
+import com.domovedov.ru.montBold
+import com.domovedov.ru.montRegular
 import com.domovedov.ru.navigation.Screen
-import com.domovedov.ru.ui.home.housecard.HouseCardBottomSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Preview
@@ -103,7 +105,9 @@ fun HomeScreen(navController: NavController) {
                 text = stringResource(id = R.string.moskovskaya_oblast),
                 fontSize = 27.sp,
                 modifier = Modifier.padding(start = 20.dp),
-                fontWeight = FontWeight(800).also { FontWeight.Bold }
+               // fontWeight = FontWeight(800).also { FontWeight.Bold },
+                fontWeight = FontWeight(800),
+                fontFamily = montBold()
             )
 
             Spacer(modifier = Modifier.padding(top = 30.dp))
@@ -115,7 +119,9 @@ fun HomeScreen(navController: NavController) {
             Text(
                 text = "Клееный брус (15)",
                 Modifier.padding(start = 20.dp),
-                fontWeight = FontWeight(800).also { FontWeight.Bold },
+               // fontWeight = FontWeight(800).also { FontWeight.Bold },
+                fontWeight = FontWeight(800),
+                fontFamily = montBold(),
                 fontSize = 20.sp
             )
 
@@ -124,7 +130,7 @@ fun HomeScreen(navController: NavController) {
             HomeItems(homeItemLocalModel) {
 
                // bottomState.show()
-              //  navController.navigate(Screen.HouseCardBottomSheet.route)
+                navController.navigate(Screen.HouseCardBottomSheet.route)
             }
          //   OpenBottomSheet(bottomState.currentValue)
         }

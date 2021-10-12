@@ -58,11 +58,12 @@ private fun NavGraphBuilder.addContactsBottomSheet(){
 @ExperimentalMaterialNavigationApi
 @ExperimentalMaterialApi
 private fun NavGraphBuilder.addHouseCardBottomSheet(navController: NavController){
-    bottomSheet(Screen.HouseCardBottomSheet.route){
+    composable(Screen.HouseCardBottomSheet.route){
         HouseCardFullScreenDialog(navController)
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 private fun NavGraphBuilder.addRegionScreen() {
     composable(NavigationItem.Region.route) {

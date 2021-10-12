@@ -6,6 +6,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 
 @SuppressLint("UnnecessaryComposedModifier")
 inline fun Modifier.noRippleClickable(crossinline onClick: ()->Unit): Modifier = composed {
@@ -14,3 +16,7 @@ inline fun Modifier.noRippleClickable(crossinline onClick: ()->Unit): Modifier =
         onClick()
     }
 }
+
+fun montRegular() = FontFamily(Font(R.font.mont_regular))
+fun montSemiBold() = FontFamily(Font(R.font.mont_semi_bold))
+fun montBold() = FontFamily(Font(R.font.mont_bold))

@@ -28,11 +28,31 @@ import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import com.domovedov.entities.local.HomeItemLocalModel
 import com.domovedov.ru.R
+import com.domovedov.ru.montRegular
+import com.domovedov.ru.montSemiBold
 import com.domovedov.ru.noRippleClickable
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 
 private val clickEvent = {}
+
+@ExperimentalPagerApi
+@Preview
+@Composable
+fun HomeItemMainPreview() {
+    HomeItemMain(
+        homeItemModel = HomeItemLocalModel(
+            picturesList,
+            false,
+            "Клееный брус 3",
+            "BLYSKÄR 33",
+            " Недавно Проект–Сервис запустил линейку домов из " +
+                    "клееного бруса. Отличительной чертой",
+            "110 м2",
+            "2,4-6 млн ₽"
+        ), clickEvent
+    )
+}
 
 @ExperimentalCoilApi
 @ExperimentalPagerApi
@@ -89,7 +109,7 @@ fun HomeItemMain(
 
 @Composable
 private fun Description(homeItemModel: HomeItemLocalModel, onClick: () -> Unit) {
-    val font = FontFamily(Font(R.font.mont_heavy, FontWeight.SemiBold))
+  //  val font = FontFamily(Font(R.font.mont_regular, FontWeight.SemiBold))
     val fontSize = 12.sp
     val blackColor = Color.Black
     Column(
@@ -102,7 +122,12 @@ private fun Description(homeItemModel: HomeItemLocalModel, onClick: () -> Unit) 
             val homeName =
                 if (homeItemModel.name.length > 17) homeItemModel.name.dropLast(3) + "..."
                 else homeItemModel.name
-            Text(text = homeName, fontFamily = font, fontSize = fontSize, color = blackColor)
+            Text(
+                text = homeName,
+                fontFamily = montSemiBold(),
+                fontSize = fontSize,
+                color = blackColor
+            )
 
             Spacer(modifier = Modifier.padding(12.dp))
 
@@ -115,7 +140,7 @@ private fun Description(homeItemModel: HomeItemLocalModel, onClick: () -> Unit) 
 
             Text(
                 text = homeItemModel.size,
-                fontFamily = font,
+                fontFamily = montSemiBold(),
                 fontSize = fontSize,
                 color = blackColor
             )
@@ -130,11 +155,10 @@ private fun Description(homeItemModel: HomeItemLocalModel, onClick: () -> Unit) 
 
             Text(
                 text = homeItemModel.price,
-                fontFamily = font,
+                fontFamily = montSemiBold(),
                 fontSize = fontSize,
                 color = blackColor
             )
-
 
         }
         Row {
@@ -149,16 +173,41 @@ private fun Description(homeItemModel: HomeItemLocalModel, onClick: () -> Unit) 
                     withStyle(
                         style = SpanStyle(
                             color = colorResource(id = R.color.black),
-                            fontSize = 20.sp
+                            fontSize = 12.sp,
+                            fontFamily = montSemiBold(),
+                            fontWeight = FontWeight.W600
                         )
                     ) {
                         append(homeItemModel.descriptionBlackName)
-                        append(description)
+                       // append(description)
+                    }
+                    withStyle(
+                        style = SpanStyle(
+                            color = colorResource(id = R.color.black),
+                            fontSize = 11.sp,
+                            fontFamily = montRegular(),
+                            fontWeight = FontWeight.W600
+                        )
+                    ) {
+                         append(description)
                     }
                 },
                 maxLines = 2
 
             )
+//            Text(
+//                buildAnnotatedString {
+//                    withStyle(style = SpanStyle(color = Color.Blue)) {
+//                        append("H")
+//                    }
+//                    append("ello ")
+//
+//                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color.Red)) {
+//                        append("W")
+//                    }
+//                    append("orld")
+//                }
+//            )
         }
     }
 }
@@ -190,22 +239,4 @@ fun makeTextViewResizable(tv: TextView, maxLine: Int, expandText: String) {
 private fun addMoreTextToEndOfTheText(descriptionText: String, maxLine: Int): String {
     if (maxLine >= 2) return "$descriptionText more"
     else return descriptionText
-}
-
-@ExperimentalPagerApi
-@Preview
-@Composable
-fun HomeItemMainPreview() {
-    HomeItemMain(
-        homeItemModel = HomeItemLocalModel(
-            picturesList,
-            false,
-            "Клееный брус 3",
-            "BLYSKÄR 33",
-            " Недавно Проект–Сервис запустил линейку домов из " +
-                    "клееного бруса. Отличительной чертой",
-            "110 м2",
-            "2,4-6 млн ₽"
-        ), clickEvent
-    )
 }

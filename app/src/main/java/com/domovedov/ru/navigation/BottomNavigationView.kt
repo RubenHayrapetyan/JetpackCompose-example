@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,6 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.domovedov.ru.R
+import com.domovedov.ru.montRegular
 
 @ExperimentalFoundationApi
 @Composable
@@ -40,8 +42,8 @@ fun BottomNavigationBar(navController: NavController) {
         modifier = Modifier
             .clip(
                 RoundedCornerShape(
-                    topStart = 25.dp,
-                    topEnd = 25.dp
+                    topStart = 20.dp,
+                    topEnd = 20.dp
                 )
             ),
         contentColor = colorResource(id = R.color.transparent),
@@ -61,8 +63,10 @@ fun BottomNavigationBar(navController: NavController) {
                 label = {
                     Text(
                         text = item.title,
-                        fontSize = 10.sp,
-                        maxLines = 2
+                        fontSize = 9.sp,
+                        maxLines = 2,
+                        fontWeight = FontWeight.W600,
+                        fontFamily = montRegular()
                     )
                 },
                 selectedContentColor = colorResource(id = R.color.blue),
