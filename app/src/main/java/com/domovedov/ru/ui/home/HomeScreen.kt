@@ -23,7 +23,6 @@ import com.domovedov.entities.local.HomeItemLocalModel
 import com.domovedov.entities.local.StoryLocalModel
 import com.domovedov.ru.R
 import com.domovedov.ru.montBold
-import com.domovedov.ru.montRegular
 import com.domovedov.ru.navigation.Screen
 import com.google.accompanist.pager.ExperimentalPagerApi
 
@@ -130,7 +129,7 @@ fun HomeScreen(navController: NavController) {
             HomeItems(homeItemLocalModel) {
 
                // bottomState.show()
-                navController.navigate(Screen.HouseCardBottomSheet.route)
+                navController.navigate(Screen.HouseCard.route)
             }
          //   OpenBottomSheet(bottomState.currentValue)
         }

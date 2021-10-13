@@ -9,13 +9,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
 import coil.annotation.ExperimentalCoilApi
 import com.domovedov.ru.contacts.ContactsBottomSheet
 import com.domovedov.ru.ui.favorites.FavoritesScreen
 import com.domovedov.ru.ui.home.HomeScreen
 import com.domovedov.ru.ui.home.configurator.ConfiguratorScreen
-import com.domovedov.ru.ui.home.housecard.HouseCardFullScreenDialog
+import com.domovedov.ru.ui.home.housecard.HouseCard
 import com.domovedov.ru.ui.home.stories.StoriesFullScreenView
 import com.domovedov.ru.ui.more.MoreScreen
 import com.domovedov.ru.ui.myproject.MyProjectScreen
@@ -58,8 +57,8 @@ private fun NavGraphBuilder.addContactsBottomSheet(){
 @ExperimentalMaterialNavigationApi
 @ExperimentalMaterialApi
 private fun NavGraphBuilder.addHouseCardBottomSheet(navController: NavController){
-    composable(Screen.HouseCardBottomSheet.route){
-        HouseCardFullScreenDialog(navController)
+    composable(Screen.HouseCard.route){
+        HouseCard(navController)
     }
 }
 

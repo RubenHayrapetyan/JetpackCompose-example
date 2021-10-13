@@ -23,9 +23,9 @@ import androidx.navigation.compose.rememberNavController
 import com.domovedov.entities.local.DeliveryLocalModel
 import com.domovedov.entities.local.FacadeLocalModel
 import com.domovedov.entities.local.FoundationLocalModel
+import com.domovedov.ru.*
 import com.domovedov.ru.R
 import com.domovedov.ru.navigation.Screen
-import com.domovedov.ru.noRippleClickable
 
 @ExperimentalMaterialApi
 @Preview

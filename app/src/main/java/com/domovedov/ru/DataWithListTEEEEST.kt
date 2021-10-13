@@ -1,4 +1,4 @@
-package com.domovedov.ru.ui.home.configurator
+package com.domovedov.ru
 
 import com.domovedov.entities.local.DeliveryLocalModel
 import com.domovedov.entities.local.FacadeLocalModel
@@ -7,20 +7,27 @@ import com.domovedov.entities.local.StoriesFullScreenModel
 import com.domovedov.ru.ui.home.picturesList
 
 
-
 val storiesList = listOf(
-    StoriesFullScreenModel("Экспертиза строительных работ",
+    StoriesFullScreenModel(
+        "Экспертиза строительных работ",
         "Гнилые доски, дырявые стены, токсичные материалы, обрушение конструкций",
-        picturesList[0], 10f),
-    StoriesFullScreenModel("Экспертиза строительных работ 2",
+        picturesList[0], 10f
+    ),
+    StoriesFullScreenModel(
+        "Экспертиза строительных работ 2",
         "Гнилые доски, дырявые стены 2, токсичные материалы, обрушение конструкций",
-        picturesList[1], 10f),
-            StoriesFullScreenModel("Экспертиза строительных работ 3",
-    "Гнилые доски, дырявые стены 3, токсичные материалы, обрушение конструкций",
-    picturesList[2], 10f),
-    StoriesFullScreenModel("Экспертиза строительных работ 4",
+        picturesList[1], 10f
+    ),
+    StoriesFullScreenModel(
+        "Экспертиза строительных работ 3",
+        "Гнилые доски, дырявые стены 3, токсичные материалы, обрушение конструкций",
+        picturesList[2], 10f
+    ),
+    StoriesFullScreenModel(
+        "Экспертиза строительных работ 4",
         "Гнилые доски, дырявые стены 4, токсичные материалы, обрушение конструкций",
-        picturesList[3], 10f)
+        picturesList[3], 10f
+    )
 )
 
 val foundationList = listOf(
@@ -47,7 +54,7 @@ val foundationList = listOf(
 
 val facadeList = listOf(
     FacadeLocalModel(
-        1,  "Декоративные панели",
+        1, "Декоративные панели",
         "Практичные виниловые панели, имитирующие природные материа лыимитирующие природные ",
         3000,
         true
@@ -87,3 +94,8 @@ val deliveryList = listOf(
         false
     ),
 )
+
+val description =
+    "Удеобный и уютный одноэтажный дом с надежной двускатной крышей из битумной черепицы. " +
+            "Оригинальный экстерьер идеально отвечает современной планировке функционального строения. " +
+            "Оригинальный экстерьер идеально отвечает современной планировке функционального строения."

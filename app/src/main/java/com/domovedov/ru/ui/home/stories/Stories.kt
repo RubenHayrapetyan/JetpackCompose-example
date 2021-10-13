@@ -31,7 +31,7 @@ import com.domovedov.ru.R
 import com.domovedov.ru.montBold
 import com.domovedov.ru.montRegular
 import com.domovedov.ru.noRippleClickable
-import com.domovedov.ru.ui.home.configurator.storiesList
+import com.domovedov.ru.storiesList
 import com.domovedov.ru.ui.home.picturesList
 import org.koin.androidx.compose.getViewModel
 
