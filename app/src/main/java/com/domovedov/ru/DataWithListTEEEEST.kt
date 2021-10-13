@@ -1,11 +1,33 @@
 package com.domovedov.ru
 
-import com.domovedov.entities.local.DeliveryLocalModel
-import com.domovedov.entities.local.FacadeLocalModel
-import com.domovedov.entities.local.FoundationLocalModel
-import com.domovedov.entities.local.StoriesFullScreenModel
+import com.domovedov.entities.local.*
 import com.domovedov.ru.ui.home.picturesList
 
+val homeItemsList = HomeItemLocalModel(
+    picturesList,
+    false,
+    "Клееный брус 3",
+    "BLYSKÄR 33",
+    " Недавно Проект–Сервис запустил линейку домов из " +
+            "клееного бруса. Отличительной чертой",
+    "110 м2",
+    "2,4-6 млн ₽"
+)
+
+val peculiaritiesList = listOf(
+    PeculiaritiesLocalModel(
+        "Технология фахверк",
+        "Удобный и уютный одноэтажный дом с надежной двускатной крышей надежной двускатной"
+    ),
+    PeculiaritiesLocalModel(
+        "Технология фахверк 2",
+        "Удобный и уютный одноэтажный дом с надежной двускатной крышей надежной двускатной 222"
+    ),
+    PeculiaritiesLocalModel(
+        "Технология фахверк 3",
+        "Удобный и уютный одноэтажный дом с надежной двускатной крышей надежной двускатной  333"
+    ),
+)
 
 val storiesList = listOf(
     StoriesFullScreenModel(

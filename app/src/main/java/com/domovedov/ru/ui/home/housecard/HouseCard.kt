@@ -1,14 +1,14 @@
 package com.domovedov.ru.ui.home.housecard
 
-import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -19,10 +19,15 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import coil.annotation.ExperimentalCoilApi
 import com.domovedov.ru.*
 import com.domovedov.ru.R
 import com.domovedov.ru.navigation.Screen
+import com.domovedov.ru.ui.home.HomeItemMain
+import com.domovedov.ru.ui.home.housecard.item.PeculiaritiesRow
+import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Preview
@@ -32,6 +37,8 @@ fun HoseCardDialogPreview() {
     HouseCard(navController)
 }
 
+@ExperimentalCoilApi
+@ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
@@ -46,7 +53,8 @@ fun HouseCard(navController: NavController) {
     ) {
         val (
             mainTitle, smallFavoriteImg, callImg, closeOvalImg,
-            smallTitleAndSize, description, peculiarities, peculiaritiesRow
+            smallTitleAndSize, description, peculiarities, peculiaritiesRow,
+            housePictures,
         ) = createRefs()
 
         val guideLineFromTop = createGuidelineFromTop(0.05f)
@@ -104,7 +112,7 @@ fun HouseCard(navController: NavController) {
                     navController.navigate(Screen.ContactsBottomSheet.route)
                 },
         )
-        
+
         Text(
             text = "Фахверк | 147 м2",
             modifier = Modifier
@@ -112,8 +120,8 @@ fun HouseCard(navController: NavController) {
                     top.linkTo(mainTitle.bottom)
                     start.linkTo(parent.start)
                 }
-                .padding(start = 20.dp),
-            fontFamily = montSemiBold(),
+                .padding(start = 20.dp, top = 25.dp),
+            fontFamily = montBold(),
             fontWeight = FontWeight.W800,
             color = Color.Black,
             fontSize = 20.sp
@@ -146,6 +154,30 @@ fun HouseCard(navController: NavController) {
             color = Color.Black,
             fontSize = 20.sp
         )
+
+        PeculiaritiesRow(modifier = Modifier
+            .padding(top = 17.dp)
+            .constrainAs(peculiaritiesRow) {
+                top.linkTo(peculiarities.bottom)
+                start.linkTo(parent.start)
+            }
+        )
+
+        Box(
+            modifier = Modifier
+                .height(326.dp)
+                .fillMaxWidth()
+                .padding(top = 35.dp)
+                .constrainAs(housePictures){
+                    top.linkTo(peculiaritiesRow.bottom)
+                    start.linkTo(parent.start)
+                }
+        ) {
+
+            HomeItemMain(homeItemsList) {
+
+            }
+        }
     }
 
 }
