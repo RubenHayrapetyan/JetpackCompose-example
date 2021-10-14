@@ -1,4 +1,4 @@
-package com.domovedov.ru.ui.home
+package com.domovedov.ru.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,6 +20,7 @@ import androidx.compose.ui.util.lerp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.domovedov.ru.R
+import com.domovedov.ru.ui.home.picturesList
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage

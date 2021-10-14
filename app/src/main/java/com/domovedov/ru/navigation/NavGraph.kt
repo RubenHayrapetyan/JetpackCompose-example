@@ -2,7 +2,7 @@ package com.domovedov.ru.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -10,7 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
-import com.domovedov.ru.contacts.ContactsBottomSheet
+import com.domovedov.ru.common.ContactsBottomSheet
 import com.domovedov.ru.ui.favorites.FavoritesScreen
 import com.domovedov.ru.ui.home.HomeScreen
 import com.domovedov.ru.ui.home.configurator.ConfiguratorScreen
@@ -38,7 +38,7 @@ fun Navigation(navController: NavHostController) {
         addMyProjectScreen(navController)
         addFavoritesScreen()
         addMoreScreen()
-        addHouseCardBottomSheet(navController)
+        addHouseCard(navController)
         addConfiguratorScreen(navController)
         addStoriesFullScreen(navController)
         addContactsBottomSheet()
@@ -53,12 +53,13 @@ private fun NavGraphBuilder.addContactsBottomSheet(){
     }
 }
 
+@ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterialNavigationApi
 @ExperimentalMaterialApi
-private fun NavGraphBuilder.addHouseCardBottomSheet(navController: NavController){
+private fun NavGraphBuilder.addHouseCard( navController: NavController){
     composable(Screen.HouseCard.route){
-        HouseCard(navController)
+        HouseCard( navController)
     }
 }
 

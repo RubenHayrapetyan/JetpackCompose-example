@@ -15,12 +15,15 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.plusAssign
+import com.domovedov.ru.R
 import com.domovedov.ru.navigation.BottomNavigationBar
 import com.domovedov.ru.navigation.Navigation
 import com.domovedov.ru.navigation.NavigationItem
@@ -31,6 +34,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.getViewModel
 
 @ExperimentalMaterialApi
@@ -51,12 +55,13 @@ class MainActivity : ComponentActivity() {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentRoute = navBackStackEntry?.destination?.route
                     val bottomSheetNavigator = rememberBottomSheetNavigator()
+                    val systemUiController = rememberSystemUiController()
                     navController.navigatorProvider += bottomSheetNavigator
 
 
                     ModalBottomSheetLayout(
                         bottomSheetNavigator,
-                        sheetShape = RoundedCornerShape(20.dp)
+                        sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
                     ) {
                         Scaffold(
                             //   topBar = { TopBar() },
@@ -67,8 +72,14 @@ class MainActivity : ComponentActivity() {
                                     currentRoute == NavigationItem.MyProject.route ||
                                     currentRoute == NavigationItem.Favorites.route ||
                                     currentRoute == NavigationItem.More.route
-                                ){
+                                ) {
                                     BottomNavigationBar(navController)
+                                }
+                                if (currentRoute == Screen.HouseCard.route ||
+                                    currentRoute == Screen.ContactsBottomSheet.route) {
+                                    systemUiController.setStatusBarColor(Color.Transparent)
+                                } else {
+                                    systemUiController.setStatusBarColor(Color.White)
                                 }
                             }
                         ) {
