@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.domovedov.entities.local.DeliveryLocalModel
 import com.domovedov.entities.local.FacadeLocalModel
 import com.domovedov.entities.local.FoundationLocalModel
@@ -48,7 +49,10 @@ fun ConfiguratorScreen(navController: NavController) {
 
         Image(
             modifier = Modifier
-                .padding(start = 20.dp),
+                .padding(start = 20.dp)
+                .noRippleClickable {
+                    navController.popBackStack()
+                },
             painter = painterResource(id = R.drawable.ic_back_black_arrow),
             contentDescription = "Back arrow"
         )
@@ -204,8 +208,8 @@ private fun FacadeRow(
             items(facadeLocalModel.size) { item ->
                 FacadeItem(
                     facadeLocalModel = facadeLocalModel[item]
-                ){
-                    facadeLocalModel.forEach{
+                ) {
+                    facadeLocalModel.forEach {
                         it.isSelected = false
                     }
                     isSelectedState = facadeLocalModel[item].isSelected
@@ -249,7 +253,7 @@ private fun DeliveryRow(
 
 @Composable
 private fun ExactCoast(modifier: Modifier) {
-    var price by remember{
+    var price by remember {
         mutableStateOf(0)
     }
 
@@ -378,7 +382,7 @@ private fun ExactCoast(modifier: Modifier) {
                 modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
             )
         }
-        
+
         Text(
             text = stringResource(id = R.string.more_info),
             fontWeight = FontWeight.W600,
@@ -386,7 +390,7 @@ private fun ExactCoast(modifier: Modifier) {
             color = colorResource(id = R.color.blue),
             modifier = Modifier
                 .padding(top = 15.dp)
-                .constrainAs(moreInfo){
+                .constrainAs(moreInfo) {
                     top.linkTo(continueBtn.bottom)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)

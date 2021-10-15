@@ -19,11 +19,5 @@ fun MyProjectScreen(navController: NavController){
         .fillMaxSize()
         .background(color = Color.Blue)) {
 
-        Button(onClick = {
-            navController.navigate(Screen.ConfiguratorScreen.route)
-
-        }, Modifier.padding(top = 100.dp, start = 100.dp)) {
-            Text(text = "Go to configurator")
-        }
     }
 }

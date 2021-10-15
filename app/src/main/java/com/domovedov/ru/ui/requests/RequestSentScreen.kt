@@ -1,4 +1,4 @@
-package com.domovedov.ru.ui.myproject.request
+package com.domovedov.ru.ui.requests
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -23,12 +23,12 @@ import com.domovedov.ru.R
 
 @Preview
 @Composable
-fun RequestScreenPreview(){
-    RequestScreen()
+fun RequestSentScreenPreview(){
+    RequestSentScreen()
 }
 
 @Composable
-fun RequestScreen(){
+fun RequestSentScreen(){
 
     Column(
         Modifier.fillMaxSize().padding(start = 45.dp, end = 45.dp),

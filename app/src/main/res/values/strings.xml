@@ -30,4 +30,6 @@
     <string name="no_uje_seychas_mi_proveryaem">Но уже сейчас мы проверяем все земельные участки.
         Для этого выберете дом и отправьте нам заявку.
         На одном из этапов сделки мы выполним комплексную проверку участка.</string>
+    <string name="price_text">Стоимость</string>
+    <string name="exact_price_is_in_configurator">Точная стоимость в конфигураторе</string>
 </resources>

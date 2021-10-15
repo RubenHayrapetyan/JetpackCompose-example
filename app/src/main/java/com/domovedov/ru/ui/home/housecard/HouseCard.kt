@@ -19,6 +19,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -74,11 +75,13 @@ fun HouseCard(navController: NavController) {
                 Modifier
                     .fillMaxSize()
                     .verticalScroll(ScrollState(0))
+                    .padding(bottom = 20.dp)
             ) {
                 val (
                     mainTitle, smallFavoriteImg, callImg, closeOvalImg,
                     smallTitleAndSize, description, peculiarities, peculiaritiesRow,
-                    housePictures,
+                    housePictures, priceTitle, priceDescription, price,
+                    configuratorBtn, moreInfo
                 ) = createRefs()
 
                 val guideLineFromTop = createGuidelineFromTop(0.05f)
@@ -158,7 +161,7 @@ fun HouseCard(navController: NavController) {
                             top.linkTo(smallTitleAndSize.bottom)
                             start.linkTo(parent.start)
                         }
-                        .padding(start = 20.dp, top = 12.dp),
+                        .padding(start = 20.dp, end = 20.dp, top = 12.dp),
                     fontFamily = montRegular(),
                     fontWeight = FontWeight.W600,
                     color = Color.Black,
@@ -200,6 +203,87 @@ fun HouseCard(navController: NavController) {
 
                     HomePicturesPager(selectedItemPictureList = picturesList)
                 }
+
+                Text(
+                    text = stringResource(id = R.string.price_text),
+                    modifier = Modifier
+                        .constrainAs(priceTitle) {
+                            top.linkTo(housePictures.bottom)
+                            start.linkTo(parent.start)
+                        }
+                        .padding(start = 20.dp, top = 25.dp),
+                    fontFamily = montBold(),
+                    fontWeight = FontWeight.W800,
+                    color = Color.Black,
+                    fontSize = 20.sp
+                )
+
+                Text(
+                    text = "3,5 - 6 млн. ₽",
+                    modifier = Modifier
+                        .constrainAs(price) {
+                            top.linkTo(housePictures.bottom)
+                            end.linkTo(parent.end)
+                        }
+                        .padding(end = 20.dp, top = 25.dp),
+                    fontFamily = montBold(),
+                    fontWeight = FontWeight.W800,
+                    color = Color.Black,
+                    fontSize = 20.sp
+                )
+
+                Text(
+                    text = stringResource(id = R.string.exact_price_is_in_configurator),
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .constrainAs(priceDescription) {
+                            top.linkTo(priceTitle.bottom)
+                            start.linkTo(priceTitle.start)
+                        }
+                        .padding(top = 4.dp, start = 20.dp),
+                    fontFamily = montRegular(),
+                    fontWeight = FontWeight.W600,
+                    color = Color.Black,
+                    fontSize = 10.sp
+                )
+
+                Button(
+                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.blue)),
+                    onClick = {
+                        navController.navigate(Screen.ConfiguratorScreen.route)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .constrainAs(configuratorBtn) {
+                            top.linkTo(priceDescription.bottom)
+                        }
+                        .padding(top = 40.dp, start = 20.dp, end = 20.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.configurator),
+                        fontWeight = FontWeight.W800,
+                        fontFamily = montBold(),
+                        fontSize = 16.sp,
+                        color = Color.White,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
+                    )
+                }
+
+                Text(
+                    text = stringResource(id = R.string.more_info),
+                    fontWeight = FontWeight.W600,
+                    fontFamily = montRegular(),
+                    fontSize = 14.sp,
+                    color = colorResource(id = R.color.blue),
+                    modifier = Modifier
+                        .padding(top = 17.dp)
+                        .constrainAs(moreInfo) {
+                            top.linkTo(configuratorBtn.bottom)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                        }
+                )
             }
 
         }
