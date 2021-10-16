@@ -1,4 +1,4 @@
-package com.domovedov.ru.ui.home.configurator
+package com.domovedov.ru.ui.configurator
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

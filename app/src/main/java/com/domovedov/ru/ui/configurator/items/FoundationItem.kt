@@ -1,4 +1,4 @@
-package com.domovedov.ru.ui.home.configurator
+package com.domovedov.ru.ui.configurator
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,15 +20,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.domovedov.entities.local.FacadeLocalModel
+import com.domovedov.entities.local.FoundationLocalModel
 import com.domovedov.ru.R
 
 @Composable
-fun FacadeItem(
-    facadeLocalModel: FacadeLocalModel,
-    onClick: () -> Unit
+fun FoundationItem(
+    foundationLocalModel: FoundationLocalModel
 ) {
-    var isSelectedState by remember { mutableStateOf(facadeLocalModel.isSelected) }
+    var isSelectedState by remember { mutableStateOf(foundationLocalModel.isSelected) }
 
     Box(
         Modifier
@@ -42,9 +41,8 @@ fun FacadeItem(
                 )
             )
             .clickable {
-                       onClick.invoke()
-//                facadeLocalModel.isSelected = !facadeLocalModel.isSelected
-//                isSelectedState = facadeLocalModel.isSelected
+                foundationLocalModel.isSelected = !foundationLocalModel.isSelected
+                isSelectedState = foundationLocalModel.isSelected
             }
         ,
     ) {
@@ -61,7 +59,7 @@ fun FacadeItem(
 
             Text(
                 textAlign = TextAlign.Start,
-                text = facadeLocalModel.title,
+                text = foundationLocalModel.title,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.W600,
                 color = Color.Black,
@@ -77,7 +75,7 @@ fun FacadeItem(
 
             Text(
                 textAlign = TextAlign.Start,
-                text = facadeLocalModel.description,
+                text = foundationLocalModel.description,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.W600,
                 color = Color.Black,

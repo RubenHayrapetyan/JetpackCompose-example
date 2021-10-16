@@ -5,4 +5,5 @@ sealed class Screen(val route: String){
     object ConfiguratorScreen: Screen("configuratorScreen")
     object HouseCard: Screen("houseCard")
     object ContactsBottomSheet: Screen("contactsBottomSheet")
+    object SendRequestScreen: Screen("sendRequestScreen")
 }

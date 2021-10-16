@@ -22,8 +22,8 @@
     <string name="continue_text">Продолжить</string>
     <string name="more_info">Больше информации</string>
     <string name="peculiarities">Особенности</string>
-    <string name="we_will_fill">Мы сами все заполним и отправим заявку во все банки</string>
-    <string name="sformirovali_konfiguraciyu_no">Сформировали конфигурацию, но можно её изменить</string>
+    <string name="we_will_fill">Мы сами все заполним \nи отправим заявку во все банки</string>
+    <string name="sformirovali_konfiguraciyu_no">Сформировали конфигурацию, но можно её изменить</string>
     <string name="nam_potrebuetsya_nemnogo">Нам потребуется немного времени чтобы подтвердить старт
         работ у застройщика, а потом свяжемся с вами.</string>
     <string name="skoro_tut_budet_marketplace">Скоро тут будет маркетплейс земельных участков</string>
@@ -32,4 +32,5 @@
         На одном из этапов сделки мы выполним комплексную проверку участка.</string>
     <string name="price_text">Стоимость</string>
     <string name="exact_price_is_in_configurator">Точная стоимость в конфигураторе</string>
+    <string name="vasha_sdelka_budet">Ваша сделка будет проходить так:</string>
 </resources>

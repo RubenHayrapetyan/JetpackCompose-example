@@ -11,14 +11,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
 import com.domovedov.ru.common.ContactsBottomSheet
+import com.domovedov.ru.ui.configurator.ConfiguratorScreen
 import com.domovedov.ru.ui.favorites.FavoritesScreen
 import com.domovedov.ru.ui.home.HomeScreen
-import com.domovedov.ru.ui.home.configurator.ConfiguratorScreen
 import com.domovedov.ru.ui.home.housecard.HouseCard
 import com.domovedov.ru.ui.home.stories.StoriesFullScreenView
 import com.domovedov.ru.ui.more.MoreScreen
 import com.domovedov.ru.ui.myproject.MyProjectScreen
 import com.domovedov.ru.ui.region.RegionScreen
+import com.domovedov.ru.ui.requests.SendRequestScreen
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -42,6 +43,13 @@ fun Navigation(navController: NavHostController) {
         addConfiguratorScreen(navController)
         addStoriesFullScreen(navController)
         addContactsBottomSheet()
+        addSendRequestScreen(navController)
+    }
+}
+
+private fun NavGraphBuilder.addSendRequestScreen( navController: NavController){
+    composable(Screen.SendRequestScreen.route){
+        SendRequestScreen(navController = navController)
     }
 }
 
@@ -53,6 +61,7 @@ private fun NavGraphBuilder.addContactsBottomSheet(){
     }
 }
 
+@ExperimentalCoilApi
 @ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterialNavigationApi
@@ -77,6 +86,7 @@ private fun NavGraphBuilder.addMyProjectScreen(navController: NavController) {
     }
 }
 
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 private fun NavGraphBuilder.addFavoritesScreen() {
@@ -85,6 +95,7 @@ private fun NavGraphBuilder.addFavoritesScreen() {
     }
 }
 
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 private fun NavGraphBuilder.addHomeScreen(navController: NavController) {
