@@ -3,15 +3,30 @@ package com.domovedov.ru
 import com.domovedov.entities.local.*
 import com.domovedov.ru.ui.home.picturesList
 
-val homeItemsList = HomeItemLocalModel(
-    picturesList,
-    false,
-    "Клееный брус 3",
-    "BLYSKÄR 33",
-    " Недавно Проект–Сервис запустил линейку домов из " +
-            "клееного бруса. Отличительной чертой",
-    "110 м2",
-    "2,4-6 млн ₽"
+val multicoloredCardLocalModel = listOf(
+    MulticoloredCardLocalModel(
+        "Подготовка к строительству",
+        "Сформируем этапность работ, " +
+                "проверим земельный участок, а также подскажем как подготовиться к строительству.",
+        "https://image.freepik.com/free-photo/pink-background_23-2148162976.jpg",
+        true
+    ),
+    MulticoloredCardLocalModel(
+        "Строительство",
+        "Застройщик произведет домокомплект, а после соберет на вашем участке. " +
+                "Мы в свою очередь будем выезжать на стройку чтобы контролировать работы и проверять " +
+                "качество материалов.",
+        "https://cdn.wallpapersafari.com/22/49/Y4lP9G.jpg",
+        true
+    ),
+    MulticoloredCardLocalModel(
+        "Завершение",
+        "Выполним регистрационные процедуры в Росреестре, а также будем на связи по всем " +
+                "вопросам, которые могут возникнуть при эксплуатации.",
+        "https://media.istockphoto.com/vectors/dreamy-smooth-abstract-green-background" +
+                "-vector-id1248543636?b=1&k=20&m=1248543636&s=170667a&w=0&h=yf3caBfotGWM1ONXJPeBOfA1IdVz8TbEvwwvTZKXmW8=",
+        false
+    )
 )
 
 val peculiaritiesList = listOf(

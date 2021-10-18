@@ -2,12 +2,16 @@ package com.domovedov.ru.ui.requests
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -16,12 +20,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.domovedov.ru.*
 import com.domovedov.ru.R
-import com.domovedov.ru.common.MulticoloredCardRow
+import com.domovedov.ru.common.MulticoloredCardRowList
+import com.domovedov.ru.montBold
+import com.domovedov.ru.montRegular
 import com.domovedov.ru.navigation.Screen
+import com.domovedov.ru.noRippleClickable
 
 @Preview
 @Composable
@@ -37,8 +44,8 @@ fun SendRequestScreen(navController: NavController) {
             .verticalScroll(ScrollState(0))
     ) {
         val (
-            backArrow, mainTitle, description, callImg, multicoloredCardRow,
-
+            backArrow, mainTitle, description, callImg, multicoloredCardRowList,
+            nextSmallArrow, yourDealText, greyLine,
         ) = createRefs()
 
         Image(
@@ -63,6 +70,7 @@ fun SendRequestScreen(navController: NavController) {
             text = "BLYSKÄR",
             fontSize = 27.sp,
             fontWeight = FontWeight.W800,
+            fontFamily = montBold(),
             color = Color.Black
         )
 
@@ -84,24 +92,72 @@ fun SendRequestScreen(navController: NavController) {
         Text(
             textAlign = TextAlign.Start,
             modifier = Modifier
-                .padding(top = 10.dp, start = 20.dp, end = 80.dp)
+                .padding(top = 10.dp, start = 20.dp)
                 .constrainAs(description) {
                     top.linkTo(mainTitle.bottom)
                     start.linkTo(parent.start)
+                    width = Dimension.fillToConstraints
                 }
                 .fillMaxWidth(),
-            text = stringResource(id = R.string.sformirovali_konfiguraciyu_no),
+            text = stringResource(id = R.string.your_deal_will),
             fontSize = 16.sp,
             fontWeight = FontWeight.W600,
+            fontFamily = montRegular(),
             color = Color.Black
         )
 
-        MulticoloredCardRow(modifier = Modifier
-            .constrainAs(multicoloredCardRow) {
+        MulticoloredCardRowList(modifier = Modifier
+            .constrainAs(multicoloredCardRowList) {
                 top.linkTo(description.bottom)
                 start.linkTo(parent.start)
             }
             .padding(top = 30.dp)
         )
+
+        Text(
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .padding(start = 20.dp, top = 40.dp )
+                .constrainAs(yourDealText) {
+                    top.linkTo(multicoloredCardRowList.bottom)
+                    start.linkTo(parent.start)
+                    width = Dimension.fillToConstraints
+                }
+                .fillMaxWidth(),
+            text = stringResource(id = R.string.primer_otcheta),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.W600,
+            fontFamily = montRegular(),
+            color = Color.Black
+        )
+
+        Image(
+            modifier = Modifier
+                .constrainAs(nextSmallArrow) {
+                    top.linkTo(yourDealText.top)
+                    bottom.linkTo(yourDealText.bottom)
+                    end.linkTo(parent.end)
+                    height = Dimension.fillToConstraints
+                }
+                .noRippleClickable {
+                    navController.navigate(Screen.ContactsBottomSheet.route)
+                }
+                .padding(end = 20.dp, top = 40.dp),
+            painter = painterResource(id = R.drawable.ic_next_small_arrow),
+            contentDescription = "Back arrow"
+        )
+
+        Divider(
+            color = colorResource(id = R.color.grey2),
+            thickness = 1.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 25.dp)
+                .background(color = colorResource(id = R.color.grey2))
+                .constrainAs(greyLine) {
+                    top.linkTo(greyLine.bottom)
+                }
+        )
+
     }
 }

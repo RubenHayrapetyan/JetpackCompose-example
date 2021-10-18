@@ -32,5 +32,6 @@
         На одном из этапов сделки мы выполним комплексную проверку участка.</string>
     <string name="price_text">Стоимость</string>
     <string name="exact_price_is_in_configurator">Точная стоимость в конфигураторе</string>
-    <string name="vasha_sdelka_budet">Ваша сделка будет проходить так:</string>
+    <string name="your_deal_will">Ваша сделка будет \nпроходить так:</string>
+    <string name="primer_otcheta">Пример отчета, который \nбудем вести для вас</string>
 </resources>
