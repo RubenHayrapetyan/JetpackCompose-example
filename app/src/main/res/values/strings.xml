@@ -34,4 +34,6 @@
     <string name="exact_price_is_in_configurator">Точная стоимость в конфигураторе</string>
     <string name="your_deal_will">Ваша сделка будет \nпроходить так:</string>
     <string name="primer_otcheta">Пример отчета, который \nбудем вести для вас</string>
+    <string name="why_dmv">Почему DMV?</string>
+    <string name="enter_your_phone">Введите ваш номер телефона</string>
 </resources>

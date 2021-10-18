@@ -8,7 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -45,7 +50,7 @@ fun SendRequestScreen(navController: NavController) {
     ) {
         val (
             backArrow, mainTitle, description, callImg, multicoloredCardRowList,
-            nextSmallArrow, yourDealText, greyLine,
+            nextSmallArrow, yourDealText, greyLine, whyDMV, phoneNumberField,
         ) = createRefs()
 
         Image(
@@ -117,7 +122,7 @@ fun SendRequestScreen(navController: NavController) {
         Text(
             textAlign = TextAlign.Start,
             modifier = Modifier
-                .padding(start = 20.dp, top = 40.dp )
+                .padding(start = 20.dp, top = 40.dp)
                 .constrainAs(yourDealText) {
                     top.linkTo(multicoloredCardRowList.bottom)
                     start.linkTo(parent.start)
@@ -152,11 +157,51 @@ fun SendRequestScreen(navController: NavController) {
             thickness = 1.dp,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 25.dp)
+                .padding(top = 15.dp, start = 20.dp, end = 20.dp)
                 .background(color = colorResource(id = R.color.grey2))
                 .constrainAs(greyLine) {
-                    top.linkTo(greyLine.bottom)
+                    top.linkTo(yourDealText.bottom)
                 }
+        )
+
+        Text(
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .padding(start = 20.dp, top = 40.dp)
+                .constrainAs(whyDMV) {
+                    top.linkTo(greyLine.bottom)
+                    start.linkTo(parent.start)
+                    width = Dimension.fillToConstraints
+                }
+                .fillMaxWidth(),
+            text = stringResource(id = R.string.why_dmv),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.W800,
+            fontFamily = montBold(),
+            color = Color.Black
+        )
+
+        // --------------------------
+
+        val textPhoneNumber = R.string.enter_your_phone
+        var text by rememberSaveable { mutableStateOf("")}
+        text = textPhoneNumber.toString()
+
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp, end = 20.dp)
+                .constrainAs(phoneNumberField) {
+                    top.linkTo(whyDMV.bottom)
+                },
+            value = text,
+            onValueChange = {
+                text = it
+            },
+//            fontSize = 20.sp,
+//            fontWeight = FontWeight.W800,
+//            fontFamily = montBold(),
+//            color = Color.Black
         )
 
     }
