@@ -28,6 +28,7 @@ import com.domovedov.ru.montBold
 import com.domovedov.ru.montRegular
 import com.domovedov.ru.multicoloredCardLocalModel
 
+@ExperimentalCoilApi
 @Preview
 @Composable
 fun MulticoloredCardRowPreview(){
@@ -104,6 +105,7 @@ private fun MulticoloredCardItem(multicoloredCardLocalModel: MulticoloredCardLoc
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun MulticoloredCardRowList(modifier: Modifier){
     LazyRow(

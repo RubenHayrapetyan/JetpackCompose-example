@@ -3,12 +3,11 @@ package com.domovedov.ru.ui.requests
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,6 +50,7 @@ fun SendRequestScreen(navController: NavController) {
         val (
             backArrow, mainTitle, description, callImg, multicoloredCardRowList,
             nextSmallArrow, yourDealText, greyLine, whyDMV, phoneNumberField,
+            spamText,
         ) = createRefs()
 
         Image(
@@ -183,25 +183,46 @@ fun SendRequestScreen(navController: NavController) {
 
         // --------------------------
 
-        val textPhoneNumber = R.string.enter_your_phone
         var text by rememberSaveable { mutableStateOf("")}
-        text = textPhoneNumber.toString()
 
-        TextField(
+        OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp)
                 .constrainAs(phoneNumberField) {
                     top.linkTo(whyDMV.bottom)
                 },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = colorResource(id = R.color.light_black),
+                unfocusedBorderColor = colorResource(id = R.color.light_black)),
             value = text,
             onValueChange = {
                 text = it
             },
-//            fontSize = 20.sp,
-//            fontWeight = FontWeight.W800,
-//            fontFamily = montBold(),
-//            color = Color.Black
+            label = {
+                Text(
+                    text = stringResource(id = R.string.enter_your_phone),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.W600,
+                    fontFamily = montRegular(),
+                    color = colorResource(id = R.color.grey_hint)
+                )
+            }
+        )
+
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(spamText) {
+                    top.linkTo(phoneNumberField.bottom)
+                }
+                .padding(top = 15.dp, start = 20.dp, end = 20.dp)
+            ,
+            text = stringResource(id = R.string.nikomu_ne_peredaem),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.W600,
+            fontFamily = montRegular(),
+            color = colorResource(id = R.color.grey3),
         )
 
     }
