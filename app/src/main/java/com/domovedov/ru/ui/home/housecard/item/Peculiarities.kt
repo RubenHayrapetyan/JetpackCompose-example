@@ -15,13 +15,6 @@ import com.domovedov.ru.montBold
 import com.domovedov.ru.montRegular
 import com.domovedov.ru.peculiaritiesList
 
-//@Preview
-//@Composable
-//fun PeculiaritiesItemPreview(){
-//    PeculiaritiesItem(peculiaritiesLocalModel =
-//    PeculiaritiesLocalModel("aaaaa", "bbbb")
-//    )
-//}
 
 @Composable
 private fun PeculiaritiesItem(peculiaritiesLocalModel: PeculiaritiesLocalModel){
